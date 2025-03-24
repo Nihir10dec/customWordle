@@ -4,7 +4,8 @@ export interface CategoryData {
   title: string
   description: string
   emoji: string
-  itemName: string
+  itemName: string;
+  enableWordleStyle?: boolean; // New flag for enabling Wordle-style highlighting
   attributes: {
     id: string
     name: string
@@ -104,7 +105,6 @@ export const categories: CategoryData[] = [
       },
     ],
   },
-
   {
     id: "animals",
     title: "Animal Guessing",
@@ -139,38 +139,190 @@ export const categories: CategoryData[] = [
     ],
   },
   {
-    id: "vehicles",
-    title: "Vehicle Guessing",
-    description: "Guess the vehicle based on its attributes",
-    emoji: "🚗",
-    itemName: "vehicle",
+    id: "bollywood",
+    title: "Bollywood Movies",
+    description: "Guess the Bollywood movie from 2000 onwards",
+    emoji: "🎬",
+    itemName: "movie",
+    enableWordleStyle: true, // Enable Wordle-style highlighting for this category
     attributes: [
       {
-        id: "type",
-        name: "Type",
-        icon: "🚘",
-        possibleValues: ["Car", "Motorcycle", "Bicycle", "Truck", "Boat", "Airplane", "Train"],
+        id: "release_year",
+        name: "Release Year",
+        icon: "📅",
+        possibleValues: Array.from({ length: new Date().getFullYear() - 1999 }, (_, i) => (2000 + i).toString()),
       },
       {
-        id: "fuel",
-        name: "Fuel Type",
-        icon: "⛽",
-        possibleValues: ["Petrol", "Diesel", "Electric", "Hybrid"],
+        id: "genre",
+        name: "Genre",
+        icon: "🎞️",
+        possibleValues: [
+          "Action",
+          "Comedy",
+          "Drama",
+          "Romance",
+          "Biopic",
+          "Sports",
+        ]
       },
       {
-        id: "terrain",
-        name: "Terrain",
-        icon: "🌄",
-        possibleValues: ["Road", "Off-road", "Water", "Air", "Rail"],
+        id: "director",
+        name: "Director",
+        icon: "🎥",
+        possibleValues: [
+          "Karan Johar",
+          "Sanjay Leela Bhansali",
+          "Rajkumar Hirani",
+          "Rohit Shetty",
+          "Zoya Akhtar",
+          "Anurag Kashyap",
+          "Imtiaz Ali",
+          "Farhan Akhtar",
+          "Rakeysh Omprakash Mehra",
+          "Ashutosh Gowariker",
+          "Vidhu Vinod Chopra", "Sandeep Reddy Vanga", "Pushkar, Gayatri", "Kabir Khan",
+          "Vishnuvardhan", "Anurag Basu", "Om Raut", "Aditya Dhar", "Rahul Dholakia", "Nitesh Tiwari",
+        ],
       },
       {
-        id: "capacity",
-        name: "Capacity",
-        icon: "👥",
-        possibleValues: ["1-2 people", "3-5 people", "6-10 people", "More than 10"],
+        id: "lead_actor",
+        name: "Lead Actor",
+        icon: "👨‍🎭",
+        possibleValues: [
+          "Shah Rukh Khan",
+          "Aamir Khan",
+          "Salman Khan",
+          "Hrithik Roshan",
+          "Ranbir Kapoor",
+          "Ranveer Singh",
+          "Akshay Kumar",
+          "Ajay Devgn",
+          "Amitabh Bachchan",
+          "Shahid Kapoor",
+          "Vikrant Massey", "Ranbir Kapoor",
+          "Saif Ali Khan", "Ranveer Singh", "Sidharth Malhotra",
+          "Abhishek Bachchan", "Rajkummar Rao", "Vicky Kaushal",
+        ],
+      },
+      {
+        id: "lead_actress",
+        name: "Lead Actress",
+        icon: "👩‍🎭",
+        possibleValues: [
+          "Deepika Padukone",
+          "Priyanka Chopra",
+          "Alia Bhatt",
+          "Kareena Kapoor",
+          "Katrina Kaif",
+          "Aishwarya Rai",
+          "Anushka Sharma",
+          "Vidya Balan",
+          "Kangana Ranaut",
+          "Madhuri Dixit", "Medha Shankar", "Rashmika Mandanna", "Radhika Apte",
+          "Kiara Advani", "Fatima Sana Shaikh", "Sanya Malhotra", "Kajol", "Yami Gautam",
+        ],
       },
     ],
   },
+  // {
+  //   id: "vehicles",
+  //   title: "Vehicle Guessing",
+  //   description: "Guess the vehicle based on its attributes",
+  //   emoji: "🚗",
+  //   itemName: "vehicle",
+  //   attributes: [
+  //     {
+  //       id: "type",
+  //       name: "Type",
+  //       icon: "🚘",
+  //       possibleValues: ["Car", "Motorcycle", "Bicycle", "Truck", "Boat", "Airplane", "Train"],
+  //     },
+  //     {
+  //       id: "fuel",
+  //       name: "Fuel Type",
+  //       icon: "⛽",
+  //       possibleValues: ["Petrol", "Diesel", "Electric", "Hybrid"],
+  //     },
+  //     {
+  //       id: "terrain",
+  //       name: "Terrain",
+  //       icon: "🌄",
+  //       possibleValues: ["Road", "Off-road", "Water", "Air", "Rail"],
+  //     },
+  //     {
+  //       id: "capacity",
+  //       name: "Capacity",
+  //       icon: "👥",
+  //       possibleValues: ["1-2 people", "3-5 people", "6-10 people", "More than 10"],
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: "landmarks",
+  //   title: "Famous Landmarks",
+  //   description: "Guess the famous landmark based on its attributes",
+  //   emoji: "🏛",
+  //   itemName: "landmark",
+  //   attributes: [
+  //     {
+  //       id: "location",
+  //       name: "Location",
+  //       icon: "🌍",
+  //       possibleValues: ["Europe", "Asia", "Africa", "North America", "South America", "Oceania"],
+  //     },
+  //     {
+  //       id: "era",
+  //       name: "Era",
+  //       icon: "🏛",
+  //       possibleValues: ["Ancient", "Medieval", "Modern"],
+  //     },
+  //     {
+  //       id: "material",
+  //       name: "Material",
+  //       icon: "🏗",
+  //       possibleValues: ["Stone", "Metal", "Concrete", "Brick"],
+  //     },
+  //     {
+  //       id: "significance",
+  //       name: "Significance",
+  //       icon: "🌟",
+  //       possibleValues: ["Cultural", "Historical", "Architectural", "Religious"],
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: "historical_figures",
+  //   title: "Historical Figures",
+  //   description: "Guess the historical figure based on their attributes",
+  //   emoji: "🎭",
+  //   itemName: "figure",
+  //   attributes: [
+  //     {
+  //       id: "time_period",
+  //       name: "Time Period",
+  //       icon: "⏳",
+  //       possibleValues: ["Ancient", "Medieval", "Modern", "Contemporary"],
+  //     },
+  //     {
+  //       id: "region",
+  //       name: "Region",
+  //       icon: "🌍",
+  //       possibleValues: ["Asia", "Europe", "Africa", "Americas"],
+  //     },
+  //     {
+  //       id: "impact",
+  //       name: "Impact",
+  //       icon: "🏆",
+  //       possibleValues: ["Politics", "Science", "Literature", "Art", "Military"],
+  //     },
+  //     {
+  //       id: "field_of_expertise",
+  //       name: "Field of Expertise",
+  //       icon: "🎓",
+  //       possibleValues: ["Philosophy", "Leadership", "Science", "Exploration", "Warfare"],
+  //     },
+  //   ],
+  // },
 ]
 
 // Helper function to get category data by ID
@@ -182,7 +334,7 @@ export function getCategoryData(categoryId: string): CategoryData | undefined {
 import { fruitData } from "./fruit-data"
 import { countryData } from "./country-data"
 import { animalData } from "./animal-data"
-import { vehicleData } from "./vehicle-data"
+import { bollywoodData } from "./bollywood-data"
 
 // Helper function to get items for a specific category
 export function getItemsForCategory(categoryId: string): any[] {
@@ -192,7 +344,7 @@ export function getItemsForCategory(categoryId: string): any[] {
     case "countries":
       return countryData
     case "animals": return animalData;
-    case "vehicles": return vehicleData;
+    case "bollywood": return bollywoodData;
     default:
       return []
   }

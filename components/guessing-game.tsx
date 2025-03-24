@@ -163,6 +163,14 @@ export default function GuessingGame({ category }: { category: string }) {
                           {attr.icon} = {attr.name}
                         </p>
                       ))}
+                      {categoryData.enableWordleStyle && (
+                        <div className="mt-2">
+                          <p>Letter colors:</p>
+                          <p>🟩 Green = Correct letter in correct position</p>
+                          <p>🟨 Yellow = Correct letter in wrong position</p>
+                          <p>⬜ Gray = Letter not in the word</p>
+                        </div>
+                      )}
                       <p>Hover over icons to see details.</p>
                     </TooltipContent>
                   </Tooltip>
@@ -214,6 +222,8 @@ export default function GuessingGame({ category }: { category: string }) {
               feedback={feedback}
               attributes={categoryData.attributes}
               isNew={index === 0 && newFeedback}
+              enableWordleStyle={categoryData.enableWordleStyle}
+              targetName={targetItem?.name || ""}
             />
           ))}
         </div>

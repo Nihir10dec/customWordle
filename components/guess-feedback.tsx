@@ -2,6 +2,7 @@
 
 import { CheckCircle, XCircle } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import WordleFeedback from "./wordle-feedback"
 
 interface Attribute {
   id: string
@@ -10,7 +11,6 @@ interface Attribute {
   possibleValues: string[]
 }
 
-// Add animation for new feedback items
 interface FeedbackProps {
   feedback: {
     name: string
@@ -19,9 +19,17 @@ interface FeedbackProps {
   }
   attributes: Attribute[]
   isNew?: boolean
+  enableWordleStyle?: boolean
+  targetName?: string
 }
 
-export default function GuessFeedback({ feedback, attributes, isNew = false }: FeedbackProps) {
+export default function GuessFeedback({
+  feedback,
+  attributes,
+  isNew = false,
+  enableWordleStyle = false,
+  targetName = "",
+}: FeedbackProps) {
   return (
     <div
       className={`p-3 border rounded-lg bg-background shadow-sm transition-all duration-300 ${isNew ? "scale-105 border-primary" : ""}`}
@@ -67,6 +75,9 @@ export default function GuessFeedback({ feedback, attributes, isNew = false }: F
           ))}
         </div>
       </div>
+
+      {/* Add Wordle-style letter feedback if enabled */}
+      {enableWordleStyle && targetName && <WordleFeedback guess={feedback.name} target={targetName} />}
     </div>
   )
 }
