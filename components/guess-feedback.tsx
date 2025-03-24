@@ -2,7 +2,7 @@
 
 import { CheckCircle, XCircle } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import WordleFeedback from "./wordle-feedback"
+import WordleFeedback from "./wordle-feedback";
 
 interface Attribute {
   id: string
