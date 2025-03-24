@@ -15,6 +15,7 @@ import GameStats from "./game-stats"
 import HowToPlay from "./how-to-play"
 import { useGameStats } from "@/hooks/use-game-stats"
 import { useSound } from "@/hooks/use-sound"
+import ShareResults from "./share-result"
 
 export default function GuessingGame({ category }: { category: string }) {
   const categoryData = getCategoryData(category)
@@ -179,11 +180,11 @@ export default function GuessingGame({ category }: { category: string }) {
             )}
           </CardTitle>
           <div className="flex items-center">
-            <Button variant="ghost" size="icon" className="h-8 w-8 mr-1" onClick={() => setShowHowToPlay(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 ml-1" onClick={() => setShowHowToPlay(true)}>
               <HelpCircle className="h-4 w-4" />
               <span className="sr-only">How to Play</span>
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowStats(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 ml-1" onClick={() => setShowStats(true)}>
               <BarChart className="h-4 w-4" />
               <span className="sr-only">Statistics</span>
             </Button>
@@ -228,9 +229,12 @@ export default function GuessingGame({ category }: { category: string }) {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex flex-wrap justify-between gap-2">
         <div className="text-sm text-muted-foreground">Attempts: {attempts}</div>
-        <Button onClick={startNewGame}>{gameWon ? "Play Again" : "New Game"}</Button>
+        <div className="flex items-center gap-2">
+          {gameWon && <ShareResults categoryName={categoryData.title} attempts={attempts} won={gameWon} />}
+          <Button onClick={startNewGame}>{gameWon ? "Play Again" : "New Game"}</Button>
+        </div>
       </CardFooter>
 
       <GameStats
