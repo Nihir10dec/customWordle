@@ -6,13 +6,15 @@ import { getCategoryData, getItemsForCategory } from "@/lib/category-data"
 import GuessInput from "./guess-input"
 import GuessFeedback from "./guess-feedback"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, BarChart, Info, ArrowLeft } from "lucide-react"
+import { AlertCircle, BarChart, Info, ArrowLeft, HelpCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import Link from "next/link"
 import Confetti from "./confetti"
 import GameStats from "./game-stats"
+import HowToPlay from "./how-to-play"
 import { useGameStats } from "@/hooks/use-game-stats"
+import { useSound } from "@/hooks/use-sound"
 
 export default function GuessingGame({ category }: { category: string }) {
   const categoryData = getCategoryData(category)
@@ -28,12 +30,22 @@ export default function GuessingGame({ category }: { category: string }) {
   const [showHint, setShowHint] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [showStats, setShowStats] = useState(false)
+  const [showHowToPlay, setShowHowToPlay] = useState(false)
+  const [newFeedback, setNewFeedback] = useState<boolean>(false)
 
   const { recordGame } = useGameStats(category)
+  const { playSound } = useSound()
 
   // Initialize the game with a random item
   useEffect(() => {
     startNewGame()
+
+    // Check if this is the first time playing this category
+    const hasPlayed = localStorage.getItem(`played-${category}`)
+    if (!hasPlayed) {
+      setShowHowToPlay(true)
+      localStorage.setItem(`played-${category}`, "true")
+    }
   }, [])
 
   const startNewGame = () => {
@@ -78,14 +90,21 @@ export default function GuessingGame({ category }: { category: string }) {
       }
     })
 
-    // Add to history
-    setGuessHistory([feedback, ...guessHistory])
+    // Add to history and play sound
+    setGuessHistory((prev) => {
+      setNewFeedback(true)
+      setTimeout(() => setNewFeedback(false), 500)
+      playSound("submit")
+      return [feedback, ...prev]
+    })
+
     setAttempts(attempts + 1)
 
     // Check if the guess is correct
     if (guessedItem.name.toLowerCase() === targetItem.name.toLowerCase()) {
       setGameWon(true)
       setShowConfetti(true)
+      playSound("win")
 
       // Record the game in stats
       recordGame(true, attempts + 1)
@@ -121,7 +140,7 @@ export default function GuessingGame({ category }: { category: string }) {
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back to Categories
           </Link>
-          <CardTitle className="text-center flex items-center justify-center">
+          <CardTitle className="text-center flex-1 flex items-center justify-center">
             {gameWon ? (
               <div className="flex items-center">
                 <span className="text-2xl mr-2">{targetItem.emoji}</span>
@@ -151,10 +170,16 @@ export default function GuessingGame({ category }: { category: string }) {
               </div>
             )}
           </CardTitle>
-          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowStats(true)}>
-            <BarChart className="h-4 w-4" />
-            <span className="sr-only">Statistics</span>
-          </Button>
+          <div className="flex items-center">
+            <Button variant="ghost" size="icon" className="h-8 w-8 mr-1" onClick={() => setShowHowToPlay(true)}>
+              <HelpCircle className="h-4 w-4" />
+              <span className="sr-only">How to Play</span>
+            </Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowStats(true)}>
+              <BarChart className="h-4 w-4" />
+              <span className="sr-only">Statistics</span>
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -184,7 +209,12 @@ export default function GuessingGame({ category }: { category: string }) {
 
         <div className="space-y-2">
           {guessHistory.map((feedback, index) => (
-            <GuessFeedback key={index} feedback={feedback} attributes={categoryData.attributes} />
+            <GuessFeedback
+              key={index}
+              feedback={feedback}
+              attributes={categoryData.attributes}
+              isNew={index === 0 && newFeedback}
+            />
           ))}
         </div>
       </CardContent>
@@ -200,6 +230,8 @@ export default function GuessingGame({ category }: { category: string }) {
         onOpenChange={setShowStats}
         onPlayAgain={startNewGame}
       />
+
+      <HowToPlay categoryData={categoryData} open={showHowToPlay} onOpenChange={setShowHowToPlay} />
     </Card>
   )
 }

@@ -70,7 +70,7 @@ export default function FruitInput({ guess, setGuess, onSubmit, disabled = false
         {letters.map((letter, index) => (
           <input
             key={index}
-            ref={(el) => (inputRefs.current[index] = el)}
+            ref={(el) => { inputRefs.current[index] = el }}
             type="text"
             value={letter}
             onChange={(e) => handleInputChange(index, e.target.value)}

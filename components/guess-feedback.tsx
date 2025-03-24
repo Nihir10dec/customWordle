@@ -10,6 +10,7 @@ interface Attribute {
   possibleValues: string[]
 }
 
+// Add animation for new feedback items
 interface FeedbackProps {
   feedback: {
     name: string
@@ -17,11 +18,14 @@ interface FeedbackProps {
     [key: string]: any
   }
   attributes: Attribute[]
+  isNew?: boolean
 }
 
-export default function GuessFeedback({ feedback, attributes }: FeedbackProps) {
+export default function GuessFeedback({ feedback, attributes, isNew = false }: FeedbackProps) {
   return (
-    <div className="p-3 border rounded-lg bg-background shadow-sm">
+    <div
+      className={`p-3 border rounded-lg bg-background shadow-sm transition-all duration-300 ${isNew ? "scale-105 border-primary" : ""}`}
+    >
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex items-center mr-2">
           <span className="text-xl mr-1">{feedback.emoji || "🔍"}</span>

@@ -33,7 +33,15 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex justify-center mb-2 gap-1">
           {rowIndex === 2 && (
-            <Button variant="outline" size="icon" className="w-10 h-10" onClick={onEnter} disabled={disabled}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="w-10 h-10"
+              onClick={() => {
+                if (!disabled) onEnter()
+              }}
+              disabled={disabled}
+            >
               <CornerDownLeft className="h-4 w-4" />
               <span className="sr-only">Enter</span>
             </Button>
@@ -45,7 +53,9 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
               variant="outline"
               size="sm"
               className="w-8 h-10 p-0 font-medium"
-              onClick={() => onKeyPress(key)}
+              onClick={() => {
+                if (!disabled) onKeyPress(key)
+              }}
               disabled={disabled}
             >
               {key}
@@ -53,7 +63,15 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
           ))}
 
           {rowIndex === 2 && (
-            <Button variant="outline" size="icon" className="w-10 h-10" onClick={onBackspace} disabled={disabled}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="w-10 h-10"
+              onClick={() => {
+                if (!disabled) onBackspace()
+              }}
+              disabled={disabled}
+            >
               <Backspace className="h-4 w-4" />
               <span className="sr-only">Backspace</span>
             </Button>

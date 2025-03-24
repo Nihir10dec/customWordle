@@ -71,15 +71,25 @@ export default function GuessInput({ guess, setGuess, onSubmit, disabled = false
   const handleVirtualKeyPress = (key: string) => {
     if (disabled) return
 
-    // Find the first empty or focused input
+    // Find the first empty input
     let targetIndex = letters.findIndex((letter) => !letter)
     if (targetIndex === -1) {
       // If all filled, append to the end if there's space
-      targetIndex = Math.min(letters.length - 1, guess.length)
+      targetIndex = Math.min(letters.length - 1, letters.filter((l) => l).length)
     }
 
     if (targetIndex >= 0) {
-      handleInputChange(targetIndex, key)
+      const newLetters = [...letters]
+      newLetters[targetIndex] = key
+      setLetters(newLetters)
+      setGuess(newLetters.join("").trim())
+
+      // Move to next input if there's space
+      if (targetIndex < maxLength - 1) {
+        setTimeout(() => {
+          inputRefs.current[targetIndex + 1]?.focus()
+        }, 10)
+      }
     }
   }
 
@@ -99,7 +109,7 @@ export default function GuessInput({ guess, setGuess, onSubmit, disabled = false
         {letters.map((letter, index) => (
           <input
             key={index}
-            ref={(el) => (inputRefs.current[index] = el)}
+            ref={(el) => { inputRefs.current[index] = el }}
             type="text"
             value={letter}
             onChange={(e) => handleInputChange(index, e.target.value)}
@@ -132,7 +142,7 @@ export default function GuessInput({ guess, setGuess, onSubmit, disabled = false
         onKeyPress={handleVirtualKeyPress}
         onBackspace={handleVirtualBackspace}
         onEnter={onSubmit}
-        disabled={!guess.trim() || disabled}
+        disabled={disabled}
       />
     </div>
   )

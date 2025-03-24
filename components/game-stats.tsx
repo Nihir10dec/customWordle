@@ -13,7 +13,7 @@ interface GameStatsProps {
 }
 
 export default function GameStats({ categoryId, categoryTitle, open, onOpenChange, onPlayAgain }: GameStatsProps) {
-  const { stats, clearStats } = useGameStats(categoryId)
+  const { stats, clearStats } = useGameStats(categoryId);
 
   const averageAttempts = stats.totalGames > 0 ? Math.round((stats.totalAttempts / stats.totalGames) * 10) / 10 : 0
 

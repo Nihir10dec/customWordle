@@ -149,7 +149,7 @@ export default function FruitGame() {
 
         <div className="space-y-2">
           {guessHistory.map((feedback, index) => (
-            <GuessFeedback key={index} feedback={feedback} />
+            <GuessFeedback key={index} feedback={feedback} attributes={[]} />
           ))}
         </div>
       </CardContent>

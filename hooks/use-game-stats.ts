@@ -22,11 +22,17 @@ const defaultStats: GameStats = {
 
 export function useGameStats(categoryId: string) {
   const [stats, setStats] = useState<GameStats>(defaultStats)
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Only runs on the client
+  }, []);
 
   // Load stats from localStorage on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedStats = localStorage.getItem(`guessing-game-stats-${categoryId}`)
+    if (isClient) {
+      const savedStats = localStorage.getItem(`guessing-game-stats-${categoryId}`);
+
       if (savedStats) {
         try {
           setStats(JSON.parse(savedStats))
@@ -36,14 +42,14 @@ export function useGameStats(categoryId: string) {
         }
       }
     }
-  }, [categoryId])
+  }, [categoryId, isClient]);
 
   // Save stats to localStorage whenever they change
   useEffect(() => {
-    if (typeof window !== "undefined" && stats !== defaultStats) {
+    if (isClient && stats.totalGames > 0) {
       localStorage.setItem(`guessing-game-stats-${categoryId}`, JSON.stringify(stats))
     }
-  }, [stats, categoryId])
+  }, [stats, categoryId, isClient])
 
   const recordGame = (won: boolean, attempts: number) => {
     setStats((prevStats) => {
@@ -66,7 +72,7 @@ export function useGameStats(categoryId: string) {
 
   const clearStats = () => {
     setStats(defaultStats)
-    if (typeof window !== "undefined") {
+    if (isClient) {
       localStorage.removeItem(`guessing-game-stats-${categoryId}`)
     }
   }
