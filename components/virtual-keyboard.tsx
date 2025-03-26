@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { SkipBackIcon as Backspace, CornerDownLeft } from "lucide-react"
+import { SkipBackIcon as Backspace, SpaceIcon } from "lucide-react"
 import { useMobileDetect } from "@/hooks/use-mobile"
 
 interface VirtualKeyboardProps {
@@ -23,6 +23,7 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
   if (!showKeyboard) return null
 
   const rows = [
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
     ["Z", "X", "C", "V", "B", "N", "M"],
@@ -32,20 +33,6 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
     <div className="w-full max-w-md mx-auto mt-4">
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex justify-center mb-2 gap-1">
-          {rowIndex === 2 && (
-            <Button
-              variant="outline"
-              size="icon"
-              className="w-10 h-10"
-              onClick={() => {
-                if (!disabled) onEnter()
-              }}
-              disabled={disabled}
-            >
-              <CornerDownLeft className="h-4 w-4" />
-              <span className="sr-only">Enter</span>
-            </Button>
-          )}
 
           {row.map((key) => (
             <Button
@@ -62,22 +49,51 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
             </Button>
           ))}
 
-          {rowIndex === 2 && (
-            <Button
-              variant="outline"
-              size="icon"
-              className="w-10 h-10"
-              onClick={() => {
-                if (!disabled) onBackspace()
-              }}
-              disabled={disabled}
-            >
-              <Backspace className="h-4 w-4" />
-              <span className="sr-only">Backspace</span>
-            </Button>
-          )}
         </div>
+
       ))}
+      <div key={4} className="flex justify-center mb-2 gap-1">
+
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-20 h-10 font-[900]"
+          onClick={() => {
+            if (!disabled) onEnter()
+          }}
+          disabled={disabled}
+        >
+          SUBMIT
+          <span className="sr-only">Submit</span>
+        </Button>
+
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-40 h-10"
+          onClick={() => {
+            if (!disabled) onKeyPress(" ")
+          }}
+          disabled={disabled}
+        >
+          <SpaceIcon className="h-4 w-4" strokeWidth={3} />
+          <span className="sr-only">Space</span>
+        </Button>
+
+
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-10 h-10 font-[900]"
+          onClick={() => {
+            if (!disabled) onBackspace()
+          }}
+          disabled={disabled}
+        >
+          <Backspace className="h-4 w-4" strokeWidth={3} />
+          <span className="sr-only">Backspace</span>
+        </Button>
+      </div>
     </div>
   )
 }

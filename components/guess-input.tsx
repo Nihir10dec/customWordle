@@ -101,6 +101,9 @@ export default function GuessInput({ guess, setGuess, onSubmit, disabled = false
     if (targetIndex >= 0) {
       handleInputChange(targetIndex, "")
     }
+    setTimeout(() => {
+      inputRefs.current[targetIndex]?.focus()
+    }, 10)
   }
 
   return (

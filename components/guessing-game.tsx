@@ -139,7 +139,7 @@ export default function GuessingGame({ category }: { category: string }) {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4 mr-1" />
-            Back to Categories
+            Back
           </Link>
           <CardTitle className="text-center flex-1 flex items-center justify-center">
             {gameWon ? (
@@ -150,41 +150,41 @@ export default function GuessingGame({ category }: { category: string }) {
             ) : (
               <div className="flex items-center">
                 Guess the {categoryData.itemName}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="ml-2 h-6 w-6">
-                        <Info className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-[250px]">
-                      <p>Guess the {categoryData.itemName} and get feedback on its attributes.</p>
-                      {categoryData.attributes.map((attr) => (
-                        <p key={attr.id}>
-                          {attr.icon} = {attr.name}
-                        </p>
-                      ))}
-                      {categoryData.enableWordleStyle && (
-                        <div className="mt-2">
-                          <p>Letter colors:</p>
-                          <p>🟩 Green = Correct letter in correct position</p>
-                          <p>🟨 Yellow = Correct letter in wrong position</p>
-                          <p>⬜ Gray = Letter not in the word</p>
-                        </div>
-                      )}
-                      <p>Hover over icons to see details.</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
               </div>
             )}
           </CardTitle>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" className=" h-8 w-8">
+                  <Info className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-[250px]">
+                <p>Guess the {categoryData.itemName} and get feedback on its attributes.</p>
+                {categoryData.attributes.map((attr) => (
+                  <p key={attr.id}>
+                    {attr.icon} = {attr.name}
+                  </p>
+                ))}
+                {categoryData.enableWordleStyle && (
+                  <div className="mt-2">
+                    <p>Letter colors:</p>
+                    <p>🟩 Green = Correct letter in correct position</p>
+                    <p>🟨 Yellow = Correct letter in wrong position</p>
+                    <p>⬜ Gray = Letter not in the word</p>
+                  </div>
+                )}
+                <p>Hover over icons to see details.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <div className="flex items-center">
-            <Button variant="ghost" size="icon" className="h-8 w-8 ml-1" onClick={() => setShowHowToPlay(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 " onClick={() => setShowHowToPlay(true)}>
               <HelpCircle className="h-4 w-4" />
               <span className="sr-only">How to Play</span>
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 ml-1" onClick={() => setShowStats(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 " onClick={() => setShowStats(true)}>
               <BarChart className="h-4 w-4" />
               <span className="sr-only">Statistics</span>
             </Button>

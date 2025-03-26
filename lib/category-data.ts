@@ -21,7 +21,7 @@ export const categories: CategoryData[] = [
     title: "Fruit Guessing",
     description: "Guess the fruit based on its attributes",
     emoji: "🍎",
-    itemName: "fruit",
+    itemName: "Fruit",
     attributes: [
       {
         id: "taste",
@@ -66,7 +66,7 @@ export const categories: CategoryData[] = [
     title: "Country Guessing",
     description: "Guess the country based on its attributes",
     emoji: "🌎",
-    itemName: "country",
+    itemName: "Country",
     attributes: [
       {
         id: "continent",
@@ -110,7 +110,7 @@ export const categories: CategoryData[] = [
     title: "Animal Guessing",
     description: "Guess the animal based on its attributes",
     emoji: "🐾",
-    itemName: "animal",
+    itemName: "Animal",
     attributes: [
       {
         id: "habitat",
@@ -143,7 +143,7 @@ export const categories: CategoryData[] = [
     title: "Bollywood Movies",
     description: "Guess the Bollywood movie from 2000 onwards",
     emoji: "🎬",
-    itemName: "movie",
+    itemName: "Movie",
     enableWordleStyle: true, // Enable Wordle-style highlighting for this category
     attributes: [
       {
