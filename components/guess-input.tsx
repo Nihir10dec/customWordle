@@ -13,9 +13,17 @@ interface GuessInputProps {
   onSubmit: () => void
   disabled?: boolean
   maxLength?: number
+  categoryColor?: string
 }
 
-export default function GuessInput({ guess, setGuess, onSubmit, disabled = false, maxLength = 15 }: GuessInputProps) {
+export default function GuessInput({
+  guess,
+  setGuess,
+  onSubmit,
+  disabled = false,
+  maxLength = 15,
+  categoryColor = "focus:border-primary",
+}: GuessInputProps) {
   const [letters, setLetters] = useState<string[]>(Array(maxLength).fill(""))
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const isMobile = useMobileDetect()
@@ -117,7 +125,7 @@ export default function GuessInput({ guess, setGuess, onSubmit, disabled = false
             value={letter}
             onChange={(e) => handleInputChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
-            className="w-7 h-9 md:w-9 md:h-10 text-center border-2 rounded font-bold text-lg uppercase focus:border-primary focus:outline-none"
+            className={`w-7 h-9 md:w-9 md:h-10 text-center border-2 rounded font-bold text-lg uppercase ${categoryColor} focus:outline-none`}
             maxLength={1}
             disabled={disabled}
             readOnly={isMobile} // Make inputs readonly on mobile to prevent keyboard popup

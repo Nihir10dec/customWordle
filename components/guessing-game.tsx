@@ -16,10 +16,14 @@ import HowToPlay from "./how-to-play"
 import { useGameStats } from "@/hooks/use-game-stats"
 import { useSound } from "@/hooks/use-sound"
 import ShareResults from "./share-result"
+import MobileTooltip from "./mobile-tooltip"
+import { useMobileDetect } from "@/hooks/use-mobile"
+import { getCategoryHeaderColor, getCategoryButtonColor, getCategoryInputColor } from "@/lib/utils";
 
 export default function GuessingGame({ category }: { category: string }) {
   const categoryData = getCategoryData(category)
   const items = getItemsForCategory(category)
+  const isMobile = useMobileDetect()
 
   const [targetItem, setTargetItem] = useState<any>(null)
   const [guess, setGuess] = useState("")
@@ -132,12 +136,37 @@ export default function GuessingGame({ category }: { category: string }) {
     return <div>Category not found</div>
   }
 
+  // Get category-specific colors
+  const headerBgClass = getCategoryHeaderColor(category)
+  const buttonColorClass = getCategoryButtonColor(category)
+
+  // Info tooltip content
+  const infoTooltipContent = (
+    <>
+      <p>Guess the {categoryData.itemName} and get feedback on its attributes.</p>
+      {categoryData.attributes.map((attr) => (
+        <p key={attr.id}>
+          {attr.icon} = {attr.name}
+        </p>
+      ))}
+      {categoryData.enableWordleStyle && (
+        <div className="mt-2">
+          <p>Letter colors:</p>
+          <p>🟩 Green = Correct letter in correct position</p>
+          <p>🟨 Yellow = Correct letter in wrong position</p>
+          <p>⬜ Gray = Letter not in the word</p>
+        </div>
+      )}
+      <p>Tap on attributes to see details.</p>
+    </>
+  )
+
   return (
-    <Card className="w-full">
+    <Card className="w-full border-2">
       {showConfetti && <Confetti />}
-      <CardHeader>
+      <CardHeader className={headerBgClass}>
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center text-sm text-muted-foreground hover:text-foreground">
+          <Link href="/" className="flex items-center text-sm text-foreground/70 hover:text-foreground">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back
           </Link>
@@ -150,41 +179,37 @@ export default function GuessingGame({ category }: { category: string }) {
             ) : (
               <div className="flex items-center">
                 Guess the {categoryData.itemName}
+                {isMobile ? (
+                  <MobileTooltip
+                    trigger={
+                      <Button variant="ghost" size="icon" className="ml-2 h-6 w-6">
+                        <Info className="h-4 w-4" />
+                      </Button>
+                    }
+                    content={infoTooltipContent}
+                    title="How to Play"
+                  />
+                ) : (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" className="ml-2 h-6 w-6">
+                          <Info className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-[250px]">{infoTooltipContent}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
             )}
           </CardTitle>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" className=" h-8 w-8">
-                  <Info className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent className="max-w-[250px]">
-                <p>Guess the {categoryData.itemName} and get feedback on its attributes.</p>
-                {categoryData.attributes.map((attr) => (
-                  <p key={attr.id}>
-                    {attr.icon} = {attr.name}
-                  </p>
-                ))}
-                {categoryData.enableWordleStyle && (
-                  <div className="mt-2">
-                    <p>Letter colors:</p>
-                    <p>🟩 Green = Correct letter in correct position</p>
-                    <p>🟨 Yellow = Correct letter in wrong position</p>
-                    <p>⬜ Gray = Letter not in the word</p>
-                  </div>
-                )}
-                <p>Hover over icons to see details.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
           <div className="flex items-center">
-            <Button variant="ghost" size="icon" className="h-8 w-8 " onClick={() => setShowHowToPlay(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowHowToPlay(true)}>
               <HelpCircle className="h-4 w-4" />
               <span className="sr-only">How to Play</span>
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 " onClick={() => setShowStats(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setShowStats(true)}>
               <BarChart className="h-4 w-4" />
               <span className="sr-only">Statistics</span>
             </Button>
@@ -200,7 +225,7 @@ export default function GuessingGame({ category }: { category: string }) {
         )}
 
         {showHint && !gameWon && (
-          <Alert className="mb-4 bg-primary/10">
+          <Alert className={`mb-4 ${headerBgClass}`}>
             <Info className="h-4 w-4" />
             <AlertDescription>{getHint()}</AlertDescription>
           </Alert>
@@ -213,6 +238,7 @@ export default function GuessingGame({ category }: { category: string }) {
             onSubmit={handleGuessSubmit}
             disabled={gameWon}
             maxLength={20}
+            categoryColor={getCategoryInputColor(category)}
           />
         </div>
 
@@ -233,7 +259,9 @@ export default function GuessingGame({ category }: { category: string }) {
         <div className="text-sm text-muted-foreground">Attempts: {attempts}</div>
         <div className="flex items-center gap-2">
           {gameWon && <ShareResults categoryName={categoryData.title} attempts={attempts} won={gameWon} />}
-          <Button onClick={startNewGame}>{gameWon ? "Play Again" : "New Game"}</Button>
+          <Button onClick={startNewGame} className={buttonColorClass}>
+            {gameWon ? "Play Again" : "New Game"}
+          </Button>
         </div>
       </CardFooter>
 
@@ -249,4 +277,3 @@ export default function GuessingGame({ category }: { category: string }) {
     </Card>
   )
 }
-

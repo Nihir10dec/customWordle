@@ -49,9 +49,9 @@ export default function WordleFeedback({ guess, target }: WordleFeedbackProps) {
   const getColorClass = (status: LetterStatus) => {
     switch (status) {
       case "correct":
-        return "bg-green-500 text-white border-green-600"
+        return "bg-green-500 text-white border-green-600 dark:bg-green-600 dark:border-green-700"
       case "present":
-        return "bg-yellow-500 text-white border-yellow-600"
+        return "bg-yellow-500 text-white border-yellow-600 dark:bg-yellow-600 dark:border-yellow-700"
       case "absent":
         return "bg-gray-400 text-white border-gray-500 dark:bg-gray-600 dark:border-gray-700"
       default:

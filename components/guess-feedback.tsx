@@ -2,7 +2,9 @@
 
 import { CheckCircle, XCircle } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import WordleFeedback from "./wordle-feedback";
+import WordleFeedback from "./wordle-feedback"
+import MobileTooltip from "./mobile-tooltip"
+import { useMobileDetect } from "@/hooks/use-mobile"
 
 interface Attribute {
   id: string
@@ -30,6 +32,8 @@ export default function GuessFeedback({
   enableWordleStyle = false,
   targetName = "",
 }: FeedbackProps) {
+  const isMobile = useMobileDetect()
+
   return (
     <div
       className={`p-3 border rounded-lg bg-background shadow-sm transition-all duration-300 ${isNew ? "scale-105 border-primary" : ""}`}
@@ -41,38 +45,54 @@ export default function GuessFeedback({
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {attributes.map((attr) => (
-            <TooltipProvider key={attr.id}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="flex items-center bg-muted/50 rounded-md px-2 py-1">
-                    <div className="flex items-center">
-                      <span className="mr-1">{attr.icon}</span>
-                      <span className="text-sm font-medium">{feedback[attr.id].value}</span>
-                    </div>
-                    <div className="ml-1">
-                      {feedback[attr.id].match ? (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      ) : (
-                        <XCircle className="h-4 w-4 text-red-500" />
-                      )}
-                    </div>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[200px] break-words">
-                  {feedback[attr.id].match ? (
-                    <p>
-                      Correct {attr.name}: {feedback[attr.id].value}
-                    </p>
+          {attributes.map((attr) => {
+            const isMatch = feedback[attr.id].match
+            const tooltipContent = (
+              <p key={attr.id}>
+                {isMatch ? (
+                  <>
+                    Correct {attr.name}: {feedback[attr.id].value}
+                  </>
+                ) : (
+                  <>
+                    Possible values are {attr.possibleValues.join(', ')}
+                  </>
+                )}
+              </p>
+            )
+
+            const attributeElement = (
+              <div
+                className={`flex items-center rounded-md px-2 py-1 ${isMatch ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"
+                  }`}
+              >
+                <div className="flex items-center">
+                  <span className="mr-1">{attr.icon}</span>
+                  <span className="text-sm font-medium">{feedback[attr.id].value}</span>
+                </div>
+                <div className="ml-1">
+                  {isMatch ? (
+                    <CheckCircle className="h-4 w-4 text-green-500" />
                   ) : (
-                    <p>
-                      Possible values are {attr.possibleValues.join(', ')}
-                    </p>
+                    <XCircle className="h-4 w-4 text-red-500" />
                   )}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ))}
+                </div>
+              </div>
+            )
+
+            return isMobile ? (
+              <MobileTooltip key={attr.id} trigger={attributeElement} content={tooltipContent} title={attr.name} />
+            ) : (
+              <TooltipProvider key={attr.id}>
+                <Tooltip>
+                  <TooltipTrigger asChild>{attributeElement}</TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[200px] break-words">
+                    {tooltipContent}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )
+          })}
         </div>
       </div>
 

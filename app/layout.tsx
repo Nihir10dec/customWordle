@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             githubUrl="https://github.com/Nihir10dec"
             portfolioUrl="https://nihir-shah.netlify.app/"
           />
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           {children}
         </ThemeProvider>
       </body>
