@@ -16,12 +16,13 @@ export const metadata = {
 };
 
 const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+const isProduction = process.env.NODE_ENV === "production";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {clarityId && (
+        {isProduction && clarityId && (
           <Script
             id="clarity-script"
             strategy="afterInteractive"

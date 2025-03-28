@@ -215,4 +215,28 @@ export const fruitData = [
     texture: "Juicy",
     emoji: "🍐",
   },
+  {
+    name: "Custard Apple",
+    taste: "Sweet",
+    origin: "India",
+    color: "Green",
+    texture: "Soft",
+    emoji: "🍈",
+  },
+  {
+    name: "Gooseberry",
+    taste: "Tart",
+    origin: "Europe",
+    color: "Green",
+    texture: "Firm",
+    emoji: "🍇",
+  },
+  {
+    name: "Passion Fruit",
+    taste: "Tart",
+    origin: "South America",
+    color: "Purple",
+    texture: "Soft",
+    emoji: "🥭",
+  },
 ];

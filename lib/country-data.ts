@@ -230,5 +230,133 @@ export const countryData = [
     climate: "Mediterranean",
     population: "Large",
     emoji: "🇪🇸"
+  },
+  {
+    name: "Morocco",
+    continent: "Africa",
+    language: "Arabic",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇲🇦"
+  },
+  {
+    name: "Peru",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇵🇪"
+  },
+  {
+    name: "Iran",
+    continent: "Asia",
+    language: "Persian",
+    climate: "Arid",
+    population: "Large",
+    emoji: "🇮🇷"
+  },
+  {
+    name: "Kenya",
+    continent: "Africa",
+    language: "Swahili",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇰🇪"
+  },
+  {
+    name: "Greece",
+    continent: "Europe",
+    language: "Greek",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇬🇷"
+  },
+  {
+    name: "Singapore",
+    continent: "Asia",
+    language: "English",
+    climate: "Tropical",
+    population: "Small",
+    emoji: "🇸🇬"
+  },
+  {
+    name: "Argentina",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇦🇷"
+  },
+  {
+    name: "Argentina",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇦🇷"
+  },
+  {
+    name: "Nigeria",
+    continent: "Africa",
+    language: "English",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇳🇬"
+  },
+  {
+    name: "Malaysia",
+    continent: "Asia",
+    language: "Malay",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇲🇾"
+  },
+  {
+    name: "Switzerland",
+    continent: "Europe",
+    language: "German",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇨🇭"
+  },
+  {
+    name: "Argentina",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇦🇷"
+  },
+  {
+    name: "Venezuela",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇻🇪"
+  },
+  {
+    name: "Ghana",
+    continent: "Africa",
+    language: "English",
+    climate: "Tropical",
+    population: "Medium",
+    emoji: "🇬🇭"
+  },
+  {
+    name: "Croatia",
+    continent: "Europe",
+    language: "Croatian",
+    climate: "Mediterranean",
+    population: "Small",
+    emoji: "🇭🇷"
+  },
+  {
+    name: "United Arab Emirates",
+    continent: "Asia",
+    language: "Arabic",
+    climate: "Arid",
+    population: "Medium",
+    emoji: "🇦🇪"
   }
-]
+];
