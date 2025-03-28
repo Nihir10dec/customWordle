@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Script from "next/script";
 import AuthorInfo from "@/components/author-info";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,8 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             githubUrl="https://github.com/Nihir10dec"
             portfolioUrl="https://nihir-shah.netlify.app/"
           />
-          {/* <ThemeToggle /> */}
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
