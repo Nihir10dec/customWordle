@@ -40,7 +40,7 @@ export const fruitData = [
     emoji: "🥭",
   },
   {
-    name: "Grapes",
+    name: "Grape",
     taste: "Sweet-Tart",
     origin: "Middle East",
     color: "Purple",

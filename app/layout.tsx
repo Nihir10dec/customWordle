@@ -37,6 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         )}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -47,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             portfolioUrl="https://nihir-shah.netlify.app/"
           />
           {children}
-          <Analytics />
+          {isProduction && <Analytics />}
         </ThemeProvider>
       </body>
     </html>

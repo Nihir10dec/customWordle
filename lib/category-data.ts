@@ -25,6 +25,7 @@ export const categories: CategoryData[] = [
     id: "fruits",
     title: "Fruit Guessing",
     description: "Guess the fruit based on its attributes",
+    enableWordleStyle: true, // Enable Wordle-style highlighting for this category
     emoji: "🍎",
     itemName: "Fruit",
     attributes: [
@@ -58,6 +59,7 @@ export const categories: CategoryData[] = [
     id: "countries",
     title: "Country Guessing",
     description: "Guess the country based on its attributes",
+    enableWordleStyle: true, // Enable Wordle-style highlighting for this category
     emoji: "🌎",
     itemName: "Country",
     attributes: [
@@ -91,6 +93,7 @@ export const categories: CategoryData[] = [
     id: "animals",
     title: "Animal Guessing",
     description: "Guess the animal based on its attributes",
+    enableWordleStyle: true, // Enable Wordle-style highlighting for this category
     emoji: "🐾",
     itemName: "Animal",
     attributes: [
@@ -140,12 +143,12 @@ export const categories: CategoryData[] = [
         icon: "🎥",
         possibleValues: getUniqueValues(bollywoodData, "genre"),
       },
-      {
-        id: "director",
-        name: "Director",
-        icon: "🎥",
-        possibleValues: getUniqueValues(bollywoodData, "director"),
-      },
+      // {
+      //   id: "director",
+      //   name: "Director",
+      //   icon: "🎥",
+      //   possibleValues: getUniqueValues(bollywoodData, "director"),
+      // },
       {
         id: "lead_actor",
         name: "Lead Actor",

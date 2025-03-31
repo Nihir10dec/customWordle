@@ -2,22 +2,22 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { useGameStats } from "@/hooks/use-game-stats"
+import type { GameStats } from "./guessing-game";
 
 interface GameStatsProps {
-  categoryId: string
   categoryTitle: string
   open: boolean
   onOpenChange: (open: boolean) => void
   onPlayAgain: () => void
+  stats: GameStats;
+  clearStats: () => void;
 }
 
-export default function GameStats({ categoryId, categoryTitle, open, onOpenChange, onPlayAgain }: GameStatsProps) {
-  const { stats, clearStats } = useGameStats(categoryId);
+export default function GameStats({ categoryTitle, open, onOpenChange, onPlayAgain, stats, clearStats }: GameStatsProps) {
 
-  const averageAttempts = stats.totalGames > 0 ? Math.round((stats.totalAttempts / stats.totalGames) * 10) / 10 : 0
+  const averageAttempts = stats.totalGames > 0 ? Math.round((stats.totalAttempts / stats.totalGames) * 10) / 10 : 0;
 
-  const bestAttempt = stats.bestAttempt || "-"
+  const bestAttempt = stats.bestAttempt || "-";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

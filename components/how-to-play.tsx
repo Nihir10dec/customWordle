@@ -3,6 +3,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import type { CategoryData } from "@/lib/category-data"
+import { ArrowUp, ArrowDown } from "lucide-react"
 
 interface HowToPlayProps {
   categoryData: CategoryData
@@ -11,9 +12,11 @@ interface HowToPlayProps {
 }
 
 export default function HowToPlay({ categoryData, open, onOpenChange }: HowToPlayProps) {
+  const isBollywood = categoryData.id === "bollywood"
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md max-h-95vh overflow-y-auto">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>How to Play {categoryData.title}</DialogTitle>
           <DialogDescription>Learn how to play the {categoryData.title} game</DialogDescription>
@@ -32,8 +35,22 @@ export default function HowToPlay({ categoryData, open, onOpenChange }: HowToPla
             <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-4">
               <li>Type a {categoryData.itemName} name and submit your guess</li>
               <li>After each guess, you'll get feedback on different attributes</li>
-              <li>A green checkmark means the attribute matches the target {categoryData.itemName}</li>
-              <li>A red X means the attribute is different</li>
+              <li>A green checkmark means the attribute matches the target {categoryData.itemName}. A red X means the attribute is different</li>
+              {isBollywood && (
+                <li>
+                  For release year, you'll see directional arrows:
+                  <ul className="list-disc pl-4 mt-1">
+                    <li className="flex items-center">
+                      <ArrowUp className="h-4 w-4 text-orange-500 mr-1" />
+                      means the movie was released later than your guess
+                    </li>
+                    <li className="flex items-center">
+                      <ArrowDown className="h-4 w-4 text-blue-500 mr-1" />
+                      means the movie was released earlier than your guess but in or after 2000
+                    </li>
+                  </ul>
+                </li>
+              )}
               {categoryData.enableWordleStyle && (
                 <li>
                   You'll also get letter-by-letter feedback:
@@ -44,8 +61,7 @@ export default function HowToPlay({ categoryData, open, onOpenChange }: HowToPla
                   </ul>
                 </li>
               )}
-              <li>Use the feedback to make better guesses</li>
-              <li>Try to guess the {categoryData.itemName} in as few attempts as possible</li>
+              <li>Both singular and plural forms are accepted where applicable (e.g., "grape" and "grapes")</li>
             </ol>
           </div>
 

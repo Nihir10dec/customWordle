@@ -13,12 +13,29 @@ import Link from "next/link"
 import Confetti from "./confetti"
 import GameStats from "./game-stats"
 import HowToPlay from "./how-to-play"
-import { useGameStats } from "@/hooks/use-game-stats"
 import { useSound } from "@/hooks/use-sound"
 import ShareResults from "./share-result"
 import MobileTooltip from "./mobile-tooltip"
 import { useMobileDetect } from "@/hooks/use-mobile"
 import { getCategoryHeaderColor, getCategoryButtonColor, getCategoryInputColor } from "@/lib/utils";
+
+export interface GameStats {
+  totalGames: number
+  wins: number
+  losses: number
+  totalAttempts: number
+  bestAttempt: number | null
+  lastPlayed: string | null
+}
+
+const defaultStats: GameStats = {
+  totalGames: 0,
+  wins: 0,
+  losses: 0,
+  totalAttempts: 0,
+  bestAttempt: null,
+  lastPlayed: null,
+}
 
 export default function GuessingGame({ category }: { category: string }) {
   const categoryData = getCategoryData(category)
@@ -38,12 +55,20 @@ export default function GuessingGame({ category }: { category: string }) {
   const [showHowToPlay, setShowHowToPlay] = useState(false)
   const [newFeedback, setNewFeedback] = useState<boolean>(false)
 
-  const { recordGame } = useGameStats(category)
+  const [stats, setStats] = useState<GameStats>(() => {
+    if (typeof window !== "undefined") {
+      const savedStats = localStorage.getItem(`guessing-game-stats-${category}`);
+      return savedStats ? JSON.parse(savedStats) : defaultStats;
+    }
+    return defaultStats;
+  });
+  const [isClient, setIsClient] = useState(false);
   const { playSound } = useSound()
 
   // Initialize the game with a random item
   useEffect(() => {
-    startNewGame()
+    setIsClient(true);
+    startNewGame();
 
     // Check if this is the first time playing this category
     const hasPlayed = localStorage.getItem(`played-${category}`)
@@ -51,7 +76,50 @@ export default function GuessingGame({ category }: { category: string }) {
       setShowHowToPlay(true)
       localStorage.setItem(`played-${category}`, "true")
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      const savedStats = localStorage.getItem(`guessing-game-stats-${category}`);
+
+      if (savedStats) {
+        try {
+          const parsedStats = JSON.parse(savedStats);
+          setStats(parsedStats);
+        } catch (e) {
+          console.error("Failed to parse saved stats", e);
+        }
+      }
+    }
+  }, [isClient, category]);
+
+  const recordGame = (won: boolean, attempts: number) => {
+    setStats((prevStats) => {
+      const newStats = {
+        totalGames: prevStats.totalGames + 1,
+        wins: won ? prevStats.wins + 1 : prevStats.wins,
+        losses: !won ? prevStats.losses + 1 : prevStats.losses,
+        totalAttempts: prevStats.totalAttempts + attempts,
+        bestAttempt: won
+          ? prevStats.bestAttempt === null || attempts < prevStats.bestAttempt
+            ? attempts
+            : prevStats.bestAttempt
+          : prevStats.bestAttempt,
+        lastPlayed: new Date().toISOString(),
+      };
+
+      localStorage.setItem(`guessing-game-stats-${category}`, JSON.stringify(newStats));
+      return newStats;
+    });
+
+  };
+
+  const clearStats = () => {
+    setStats(defaultStats);
+    if (isClient) {
+      localStorage.removeItem(`guessing-game-stats-${category}`);
+    }
+  }
 
   const startNewGame = () => {
     const randomIndex = Math.floor(Math.random() * items.length)
@@ -66,12 +134,36 @@ export default function GuessingGame({ category }: { category: string }) {
     setShowStats(false)
   }
 
+  // Function to normalize item names for comparison (handles plurals and common variations)
+  const normalizeItemName = (name: string): string => {
+    // Convert to lowercase
+    let normalized = name.toLowerCase().trim()
+
+    // Remove trailing 's' for plurals if it exists
+    if (normalized.endsWith("s") && normalized.length > 1) {
+      const singular = normalized.slice(0, -1)
+      // Check if the singular form exists in our items
+      const singularExists = items.some((item) => item.name.toLowerCase() === singular)
+
+      if (singularExists) {
+        normalized = singular
+      }
+    }
+
+    return normalized
+  }
+
   const handleGuessSubmit = () => {
     if (!guess.trim()) return
 
-    // Check if the guess is valid (exists in our data)
-    const guessLower = guess.toLowerCase()
-    const guessedItem = items.find((item) => item.name.toLowerCase() === guessLower)
+    // Normalize the guess for comparison
+    const normalizedGuess = normalizeItemName(guess)
+
+    // Find the matching item, allowing for plurals and variations
+    const guessedItem = items.find((item) => {
+      const normalizedItemName = normalizeItemName(item.name)
+      return normalizedItemName === normalizedGuess
+    })
 
     if (!guessedItem) {
       setErrorMessage(`"${guess}" is not in our ${categoryData?.itemName} database.`)
@@ -88,10 +180,23 @@ export default function GuessingGame({ category }: { category: string }) {
 
     // Add attribute feedback
     categoryData?.attributes.forEach((attr) => {
-      feedback[attr.id] = {
-        match: guessedItem[attr.id] === targetItem[attr.id],
-        value: guessedItem[attr.id],
-        target: targetItem[attr.id],
+      // Special handling for release_year in Bollywood category
+      if (category === "bollywood" && attr.id === "release_year") {
+        const guessYear = Number.parseInt(guessedItem[attr.id])
+        const targetYear = Number.parseInt(targetItem[attr.id])
+
+        feedback[attr.id] = {
+          match: guessYear === targetYear,
+          value: guessedItem[attr.id],
+          target: targetItem[attr.id],
+          direction: guessYear < targetYear ? "later" : guessYear > targetYear ? "earlier" : "match",
+        }
+      } else {
+        feedback[attr.id] = {
+          match: guessedItem[attr.id] === targetItem[attr.id],
+          value: guessedItem[attr.id],
+          target: targetItem[attr.id],
+        }
       }
     })
 
@@ -106,7 +211,7 @@ export default function GuessingGame({ category }: { category: string }) {
     setAttempts(attempts + 1)
 
     // Check if the guess is correct
-    if (guessedItem.name.toLowerCase() === targetItem.name.toLowerCase()) {
+    if (normalizeItemName(guessedItem.name) === normalizeItemName(targetItem.name)) {
       setGameWon(true)
       setShowConfetti(true)
       playSound("win")
@@ -149,6 +254,13 @@ export default function GuessingGame({ category }: { category: string }) {
           {attr.icon} = {attr.name}
         </p>
       ))}
+      {category === "bollywood" && (
+        <div className="mt-1">
+          <p>For release year:</p>
+          <p>⬆️ = Movie was released later than your guess</p>
+          <p>⬇️ = Movie was released earlier than your guess</p>
+        </div>
+      )}
       {categoryData.enableWordleStyle && (
         <div className="mt-2">
           <p>Letter colors:</p>
@@ -251,6 +363,7 @@ export default function GuessingGame({ category }: { category: string }) {
               isNew={index === 0 && newFeedback}
               enableWordleStyle={categoryData.enableWordleStyle}
               targetName={targetItem?.name || ""}
+              category={category}
             />
           ))}
         </div>
@@ -266,11 +379,12 @@ export default function GuessingGame({ category }: { category: string }) {
       </CardFooter>
 
       <GameStats
-        categoryId={category}
         categoryTitle={categoryData.title}
         open={showStats}
         onOpenChange={setShowStats}
         onPlayAgain={startNewGame}
+        stats={stats}
+        clearStats={clearStats}
       />
 
       <HowToPlay categoryData={categoryData} open={showHowToPlay} onOpenChange={setShowHowToPlay} />

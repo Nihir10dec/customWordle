@@ -102,10 +102,9 @@ const config: Config = {
 			pattern: /(bg|hover:bg|dark:bg|dark:hover:bg)-(red|blue|amber|green|purple|teal)-(500|600|700)/,
 			variants: ['hover', 'dark', 'dark:hover']
 		},
-		// Input Focus Border Colors
 		{
-			pattern: /(focus:border)-(red|blue|amber|green|purple|teal)-(400|500)/,
-			variants: ['dark']
+			pattern: /(bg|dark:bg)-(red|blue|amber|green|purple|teal)-(100|900\/20)/,
+			variants: ["hover", "focus"],
 		},
 		// Primary color variations
 		'bg-primary/10',
