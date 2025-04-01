@@ -14,6 +14,7 @@ interface GuessInputProps {
   disabled?: boolean
   maxLength?: number
   categoryColor?: string
+  incorrectLetters?: Set<string>
 }
 
 export default function GuessInput({
@@ -23,6 +24,7 @@ export default function GuessInput({
   disabled = false,
   maxLength = 15,
   categoryColor = "focus:border-primary",
+  incorrectLetters = new Set(),
 }: GuessInputProps) {
   const [letters, setLetters] = useState<string[]>(Array(maxLength).fill(""))
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -154,6 +156,7 @@ export default function GuessInput({
         onBackspace={handleVirtualBackspace}
         onEnter={onSubmit}
         disabled={disabled}
+        incorrectLetters={incorrectLetters}
       />
     </div>
   )

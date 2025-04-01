@@ -6,7 +6,7 @@ import { getCategoryData, getItemsForCategory } from "@/lib/category-data"
 import GuessInput from "./guess-input"
 import GuessFeedback from "./guess-feedback"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, BarChart, Info, ArrowLeft, HelpCircle } from "lucide-react"
+import { AlertCircle, BarChart, Info, ArrowLeft, HelpCircle, Lightbulb } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import Link from "next/link"
@@ -50,10 +50,18 @@ export default function GuessingGame({ category }: { category: string }) {
   const [errorMessage, setErrorMessage] = useState("")
   const [attempts, setAttempts] = useState(0)
   const [showHint, setShowHint] = useState(false)
+  const [hintAttribute, setHintAttribute] = useState<string | null>(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [showHowToPlay, setShowHowToPlay] = useState(false)
   const [newFeedback, setNewFeedback] = useState<boolean>(false)
+  const [attemptsAfterHint, setAttemptsAfterHint] = useState(0)
+  const [hintButtonEnabled, setHintButtonEnabled] = useState(false)
+  const [revealedHints, setRevealedHints] = useState<string[]>([])
+  const [correctlyGuessedAttributes, setCorrectlyGuessedAttributes] = useState<string[]>([])
+  const [usedLetters, setUsedLetters] = useState<Set<string>>(new Set())
+  const [incorrectLetters, setIncorrectLetters] = useState<Set<string>>(new Set())
+  const [hasGuessed, setHasGuessed] = useState(false)
 
   const [stats, setStats] = useState<GameStats>(() => {
     if (typeof window !== "undefined") {
@@ -121,6 +129,15 @@ export default function GuessingGame({ category }: { category: string }) {
     }
   }
 
+  // Update hint button status based on attempts
+  useEffect(() => {
+    if (attempts >= 3 && attemptsAfterHint >= 2) {
+      setHintButtonEnabled(true)
+    } else if (attempts < 3) {
+      setHintButtonEnabled(false)
+    }
+  }, [attempts, attemptsAfterHint])
+
   const startNewGame = () => {
     const randomIndex = Math.floor(Math.random() * items.length)
     setTargetItem(items[randomIndex])
@@ -130,8 +147,16 @@ export default function GuessingGame({ category }: { category: string }) {
     setShowError(false)
     setAttempts(0)
     setShowHint(false)
+    setHintAttribute(null)
     setShowConfetti(false)
     setShowStats(false)
+    setAttemptsAfterHint(0)
+    setHintButtonEnabled(false)
+    setRevealedHints([])
+    setCorrectlyGuessedAttributes([])
+    setUsedLetters(new Set())
+    setIncorrectLetters(new Set())
+    setHasGuessed(false)
   }
 
   // Function to normalize item names for comparison (handles plurals and common variations)
@@ -153,6 +178,82 @@ export default function GuessingGame({ category }: { category: string }) {
     return normalized
   }
 
+  // Function to get a random attribute hint
+  const getRandomAttributeHint = (): string => {
+    if (!targetItem || !categoryData) return ""
+
+    // Filter out attributes that have already been revealed or correctly guessed
+    const availableAttributes = categoryData.attributes.filter(
+      (attr) => !revealedHints.includes(attr.id) && !correctlyGuessedAttributes.includes(attr.id),
+    )
+
+    // If all attributes have been revealed or guessed, use any non-guessed attribute
+    const nonGuessedAttributes = categoryData.attributes.filter((attr) => !correctlyGuessedAttributes.includes(attr.id))
+
+    // If all attributes have been correctly guessed, just pick any attribute
+    const attributes =
+      availableAttributes.length > 0
+        ? availableAttributes
+        : nonGuessedAttributes.length > 0
+          ? nonGuessedAttributes
+          : categoryData.attributes
+
+    // Select a random attribute
+    const randomIndex = Math.floor(Math.random() * attributes.length)
+    const selectedAttribute = attributes[randomIndex]
+
+    // Add to revealed hints
+    if (!revealedHints.includes(selectedAttribute.id)) {
+      setRevealedHints([...revealedHints, selectedAttribute.id])
+    }
+
+    return selectedAttribute.id
+  }
+
+  // Function to get hint text based on the selected attribute
+  const getHintText = (): string => {
+    if (!targetItem || !hintAttribute || !categoryData) return ""
+
+    const attribute = categoryData.attributes.find((attr) => attr.id === hintAttribute)
+    if (!attribute) return ""
+
+    return `Hint: The ${categoryData.itemName}'s ${attribute.name.toLowerCase()} is ${targetItem[hintAttribute]}.`
+  }
+
+  // Function to update used and incorrect letters
+  const updateLetterStatus = (guessedWord: string, targetWord: string) => {
+    const guessLetters = guessedWord.toLowerCase().split("")
+    const targetLetters = targetWord.toLowerCase().split("")
+
+    // Add all guessed letters to used letters
+    const newUsedLetters = new Set(usedLetters)
+    guessLetters.forEach((letter) => newUsedLetters.add(letter))
+    setUsedLetters(newUsedLetters)
+
+    // Find letters that are in the guess but not in the target
+    const newIncorrectLetters = new Set(incorrectLetters)
+    guessLetters.forEach((letter) => {
+      if (!targetLetters.includes(letter)) {
+        newIncorrectLetters.add(letter)
+      }
+    })
+    setIncorrectLetters(newIncorrectLetters)
+  }
+
+  // Function to handle hint button click
+  const handleShowHint = () => {
+    if (!hintButtonEnabled || gameWon) return
+
+    const attributeId = getRandomAttributeHint()
+    setHintAttribute(attributeId)
+    setShowHint(true)
+    setHintButtonEnabled(false)
+    setAttemptsAfterHint(0)
+
+    // Play a sound for hint reveal
+    playSound("submit")
+  }
+
   const handleGuessSubmit = () => {
     if (!guess.trim()) return
 
@@ -172,11 +273,17 @@ export default function GuessingGame({ category }: { category: string }) {
       return
     }
 
+    // Set hasGuessed to true after first valid guess
+    setHasGuessed(true)
+
     // Create feedback for the guess
     const feedback: any = {
       name: guessedItem.name,
       emoji: guessedItem.emoji,
     }
+
+    // Track correctly guessed attributes
+    const newCorrectlyGuessedAttributes = [...correctlyGuessedAttributes]
 
     // Add attribute feedback
     categoryData?.attributes.forEach((attr) => {
@@ -185,20 +292,42 @@ export default function GuessingGame({ category }: { category: string }) {
         const guessYear = Number.parseInt(guessedItem[attr.id])
         const targetYear = Number.parseInt(targetItem[attr.id])
 
+        const isMatch = guessYear === targetYear
+
         feedback[attr.id] = {
-          match: guessYear === targetYear,
+          match: isMatch,
           value: guessedItem[attr.id],
           target: targetItem[attr.id],
           direction: guessYear < targetYear ? "later" : guessYear > targetYear ? "earlier" : "match",
         }
+
+        // If this attribute was guessed correctly, add it to the list
+        if (isMatch && !newCorrectlyGuessedAttributes.includes(attr.id)) {
+          newCorrectlyGuessedAttributes.push(attr.id)
+        }
       } else {
+        const isMatch = guessedItem[attr.id] === targetItem[attr.id]
+
         feedback[attr.id] = {
-          match: guessedItem[attr.id] === targetItem[attr.id],
+          match: isMatch,
           value: guessedItem[attr.id],
           target: targetItem[attr.id],
         }
+
+        // If this attribute was guessed correctly, add it to the list
+        if (isMatch && !newCorrectlyGuessedAttributes.includes(attr.id)) {
+          newCorrectlyGuessedAttributes.push(attr.id)
+        }
       }
     })
+
+    // Update correctly guessed attributes
+    setCorrectlyGuessedAttributes(newCorrectlyGuessedAttributes)
+
+    // Update letter status for keyboard
+    if (categoryData?.enableWordleStyle) {
+      updateLetterStatus(guessedItem.name, targetItem.name)
+    }
 
     // Add to history and play sound
     setGuessHistory((prev) => {
@@ -208,7 +337,9 @@ export default function GuessingGame({ category }: { category: string }) {
       return [feedback, ...prev]
     })
 
+    // Increment attempts and attempts after hint
     setAttempts(attempts + 1)
+    setAttemptsAfterHint(attemptsAfterHint + 1)
 
     // Check if the guess is correct
     if (normalizeItemName(guessedItem.name) === normalizeItemName(targetItem.name)) {
@@ -223,18 +354,15 @@ export default function GuessingGame({ category }: { category: string }) {
       setTimeout(() => {
         setShowStats(true)
       }, 2000)
-    } else if (attempts >= 4) {
-      // Show hint after 5 attempts
+    } else if (attempts >= 4 && !hintAttribute) {
+      // Show attribute hint after 5 attempts if no hint has been shown yet
+      const attributeId = getRandomAttributeHint()
+      setHintAttribute(attributeId)
       setShowHint(true)
     }
 
     // Reset the guess
     setGuess("")
-  }
-
-  const getHint = () => {
-    if (!targetItem) return ""
-    return `Hint: The ${categoryData?.itemName} starts with "${targetItem.name.charAt(0)}" and has ${targetItem.name.length} letters.`
   }
 
   if (!categoryData) {
@@ -271,7 +399,14 @@ export default function GuessingGame({ category }: { category: string }) {
       )}
       <p>Tap on attributes to see details.</p>
     </>
-  )
+  );
+
+  // Hint button tooltip content
+  const hintButtonTooltip = hintButtonEnabled
+    ? "Reveal a random attribute of the target item"
+    : attempts < 3
+      ? "Available after 3 wrong attempts"
+      : "Available after 2 more attempts";
 
   return (
     <Card className="w-full border-2">
@@ -339,7 +474,7 @@ export default function GuessingGame({ category }: { category: string }) {
         {showHint && !gameWon && (
           <Alert className={`mb-4 ${headerBgClass}`}>
             <Info className="h-4 w-4" />
-            <AlertDescription>{getHint()}</AlertDescription>
+            <AlertDescription>{getHintText()}</AlertDescription>
           </Alert>
         )}
 
@@ -351,8 +486,52 @@ export default function GuessingGame({ category }: { category: string }) {
             disabled={gameWon}
             maxLength={20}
             categoryColor={getCategoryInputColor(category)}
+            incorrectLetters={incorrectLetters}
           />
         </div>
+
+        {!gameWon && (
+          <div className="flex justify-center mb-4">
+            {isMobile ? (
+              <MobileTooltip
+                trigger={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1"
+                    onClick={handleShowHint}
+                    disabled={!hintButtonEnabled || gameWon}
+                  >
+                    <Lightbulb className={`h-4 w-4 ${hintButtonEnabled ? "text-yellow-500" : ""}`} />
+                    <span>Show Hint</span>
+                  </Button>
+                }
+                content={hintButtonTooltip}
+                title="Hint Button"
+              />
+            ) : (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1"
+                        onClick={handleShowHint}
+                        disabled={!hintButtonEnabled || gameWon}
+                      >
+                        <Lightbulb className={`h-4 w-4 ${hintButtonEnabled ? "text-yellow-500" : ""}`} />
+                        <span>Show Hint</span>
+                      </Button>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>{hintButtonTooltip}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           {guessHistory.map((feedback, index) => (
@@ -372,7 +551,7 @@ export default function GuessingGame({ category }: { category: string }) {
         <div className="text-sm text-muted-foreground">Attempts: {attempts}</div>
         <div className="flex items-center gap-2">
           {gameWon && <ShareResults categoryName={categoryData.title} attempts={attempts} won={gameWon} />}
-          <Button onClick={startNewGame} className={buttonColorClass}>
+          <Button onClick={startNewGame} className={buttonColorClass} disabled={!hasGuessed && !gameWon}>
             {gameWon ? "Play Again" : "New Game"}
           </Button>
         </div>
@@ -385,6 +564,7 @@ export default function GuessingGame({ category }: { category: string }) {
         onPlayAgain={startNewGame}
         stats={stats}
         clearStats={clearStats}
+        itemFact={gameWon ? targetItem.fact : null}
       />
 
       <HowToPlay categoryData={categoryData} open={showHowToPlay} onOpenChange={setShowHowToPlay} />

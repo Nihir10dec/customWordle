@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import type { GameStats } from "./guessing-game";
+import { useEffect } from "react"
 
 interface GameStatsProps {
   categoryTitle: string
@@ -11,21 +12,36 @@ interface GameStatsProps {
   onPlayAgain: () => void
   stats: GameStats;
   clearStats: () => void;
+  itemFact?: string | null
 }
 
-export default function GameStats({ categoryTitle, open, onOpenChange, onPlayAgain, stats, clearStats }: GameStatsProps) {
+export default function GameStats({
+  categoryTitle,
+  open,
+  onOpenChange,
+  onPlayAgain,
+  stats,
+  clearStats,
+  itemFact = null,
+}: GameStatsProps) {
 
-  const averageAttempts = stats.totalGames > 0 ? Math.round((stats.totalAttempts / stats.totalGames) * 10) / 10 : 0;
-
-  const bestAttempt = stats.bestAttempt || "-";
+  const averageAttempts = stats.totalGames > 0 ? Math.round((stats.totalAttempts / stats.totalGames) * 10) / 10 : 0
+  const bestAttempt = stats.bestAttempt || "-"
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Your {categoryTitle} Stats</DialogTitle>
-          <DialogDescription>Your performance in the {categoryTitle} category</DialogDescription>
+          {/* <DialogDescription>Your performance in the {categoryTitle} category</DialogDescription> */}
         </DialogHeader>
+
+        {itemFact && (
+          <div className="bg-primary/10 p-4 rounded-lg mb-4 text-sm">
+            <h3 className="font-bold mb-1">Fun Fact of the answer</h3>
+            <p>{itemFact}</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-2 gap-4 py-4">
           <div className="flex flex-col items-center p-3 bg-muted rounded-lg">

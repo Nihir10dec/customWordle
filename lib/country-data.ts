@@ -1,35 +1,12 @@
 export const countryData = [
   {
-    name: "Argentina",
-    continent: "South America",
-    language: "Spanish",
+    name: "United States",
+    continent: "North America",
+    language: "English",
     climate: "Temperate",
-    population: "Large",
-    emoji: "🇦🇷"
-  },
-  {
-    name: "Egypt",
-    continent: "Africa",
-    language: "Arabic",
-    climate: "Arid",
-    population: "Large",
-    emoji: "🇪🇬"
-  },
-  {
-    name: "Norway",
-    continent: "Europe",
-    language: "Norwegian",
-    climate: "Continental",
-    population: "Small",
-    emoji: "🇳🇴"
-  },
-  {
-    name: "South Korea",
-    continent: "Asia",
-    language: "Korean",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇰🇷"
+    population: "Very Large",
+    emoji: "🇺🇸",
+    fact: "The United States has the world's largest economy and is home to more than 400 national parks.",
   },
   {
     name: "Canada",
@@ -37,7 +14,8 @@ export const countryData = [
     language: "English",
     climate: "Continental",
     population: "Medium",
-    emoji: "🇨🇦"
+    emoji: "🇨🇦",
+    fact: "Canada has more lakes than the rest of the world combined, with over 3 million lakes.",
   },
   {
     name: "Brazil",
@@ -45,87 +23,17 @@ export const countryData = [
     language: "Portuguese",
     climate: "Tropical",
     population: "Very Large",
-    emoji: "🇧🇷"
+    emoji: "🇧🇷",
+    fact: "Brazil is home to the Amazon, the world's largest rainforest, which produces about 20% of the world's oxygen.",
   },
   {
-    name: "Russia",
-    continent: "Europe",
-    language: "Russian",
-    climate: "Continental",
-    population: "Very Large",
-    emoji: "🇷🇺"
-  },
-  {
-    name: "Saudi Arabia",
-    continent: "Asia",
-    language: "Arabic",
-    climate: "Arid",
-    population: "Large",
-    emoji: "🇸🇦"
-  },
-  {
-    name: "Thailand",
-    continent: "Asia",
-    language: "Thai",
-    climate: "Tropical",
-    population: "Large",
-    emoji: "🇹🇭"
-  },
-  {
-    name: "Australia",
-    continent: "Oceania",
-    language: "English",
-    climate: "Arid",
-    population: "Medium",
-    emoji: "🇦🇺"
-  },
-  {
-    name: "Sweden",
-    continent: "Europe",
-    language: "Swedish",
-    climate: "Continental",
-    population: "Small",
-    emoji: "🇸🇪"
-  },
-  {
-    name: "Mexico",
-    continent: "North America",
+    name: "Argentina",
+    continent: "South America",
     language: "Spanish",
     climate: "Temperate",
-    population: "Very Large",
-    emoji: "🇲🇽"
-  },
-  {
-    name: "China",
-    continent: "Asia",
-    language: "Chinese",
-    climate: "Continental",
-    population: "Very Large",
-    emoji: "🇨🇳"
-  },
-  {
-    name: "Italy",
-    continent: "Europe",
-    language: "Italian",
-    climate: "Mediterranean",
     population: "Large",
-    emoji: "🇮🇹"
-  },
-  {
-    name: "South Africa",
-    continent: "Africa",
-    language: "English",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇿🇦"
-  },
-  {
-    name: "India",
-    continent: "Asia",
-    language: "Hindi",
-    climate: "Tropical",
-    population: "Very Large",
-    emoji: "🇮🇳"
+    emoji: "🇦🇷",
+    fact: "Argentina is the birthplace of tango and has the highest consumption of beef per capita in the world.",
   },
   {
     name: "United Kingdom",
@@ -133,15 +41,17 @@ export const countryData = [
     language: "English",
     climate: "Temperate",
     population: "Large",
-    emoji: "🇬🇧"
+    emoji: "🇬🇧",
+    fact: "The London Underground is the oldest underground railway network in the world, opened in 1863.",
   },
   {
-    name: "Indonesia",
-    continent: "Asia",
-    language: "Indonesian",
-    climate: "Tropical",
-    population: "Very Large",
-    emoji: "🇮🇩"
+    name: "France",
+    continent: "Europe",
+    language: "French",
+    climate: "Mediterranean",
+    population: "Large",
+    emoji: "🇫🇷",
+    fact: "France is the most visited country in the world, with over 89 million tourists annually.",
   },
   {
     name: "Germany",
@@ -149,79 +59,8 @@ export const countryData = [
     language: "German",
     climate: "Temperate",
     population: "Large",
-    emoji: "🇩🇪"
-  },
-  {
-    name: "Turkey",
-    continent: "Asia",
-    language: "Turkish",
-    climate: "Mediterranean",
-    population: "Large",
-    emoji: "🇹🇷"
-  },
-  {
-    name: "New Zealand",
-    continent: "Oceania",
-    language: "English",
-    climate: "Temperate",
-    population: "Small",
-    emoji: "🇳🇿"
-  },
-  {
-    name: "Japan",
-    continent: "Asia",
-    language: "Japanese",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇯🇵"
-  },
-  {
-    name: "Colombia",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Tropical",
-    population: "Large",
-    emoji: "🇨🇴"
-  },
-  {
-    name: "Pakistan",
-    continent: "Asia",
-    language: "Urdu",
-    climate: "Arid",
-    population: "Very Large",
-    emoji: "🇵🇰"
-  },
-  {
-    name: "Chile",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Mediterranean",
-    population: "Medium",
-    emoji: "🇨🇱"
-  },
-  {
-    name: "France",
-    continent: "Europe",
-    language: "French",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇫🇷"
-  },
-  {
-    name: "United States",
-    continent: "North America",
-    language: "English",
-    climate: "Temperate",
-    population: "Very Large",
-    emoji: "🇺🇸"
-  },
-  {
-    name: "Vietnam",
-    continent: "Asia",
-    language: "Vietnamese",
-    climate: "Tropical",
-    population: "Large",
-    emoji: "🇻🇳"
+    emoji: "🇩🇪",
+    fact: "Germany has over 1,500 different types of sausages and 1,300 beer breweries.",
   },
   {
     name: "Spain",
@@ -229,71 +68,62 @@ export const countryData = [
     language: "Spanish",
     climate: "Mediterranean",
     population: "Large",
-    emoji: "🇪🇸"
+    emoji: "🇪🇸",
+    fact: "Spain is the world's largest producer of olive oil, accounting for 44% of global production.",
   },
   {
-    name: "Morocco",
+    name: "Italy",
+    continent: "Europe",
+    language: "Italian",
+    climate: "Mediterranean",
+    population: "Large",
+    emoji: "🇮🇹",
+    fact: "Italy has the most UNESCO World Heritage Sites of any country, with 58 in total.",
+  },
+  {
+    name: "China",
+    continent: "Asia",
+    language: "Chinese",
+    climate: "Continental",
+    population: "Very Large",
+    emoji: "🇨🇳",
+    fact: "The Great Wall of China is the largest man-made structure in the world, stretching over 13,000 miles.",
+  },
+  {
+    name: "India",
+    continent: "Asia",
+    language: "Hindi",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇮🇳",
+    fact: "India is the world's largest democracy and has the second-largest population with over 1.3 billion people.",
+  },
+  {
+    name: "Japan",
+    continent: "Asia",
+    language: "Japanese",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇯🇵",
+    fact: "Japan consists of 6,852 islands and has the world's oldest continuous monarchy.",
+  },
+  {
+    name: "Australia",
+    continent: "Oceania",
+    language: "English",
+    climate: "Arid",
+    population: "Medium",
+    emoji: "🇦🇺",
+    fact: "Australia is the only country that is also a continent, and about 80% of its plants and animals are unique to it.",
+  },
+  {
+    name: "Egypt",
     continent: "Africa",
     language: "Arabic",
-    climate: "Mediterranean",
-    population: "Medium",
-    emoji: "🇲🇦"
-  },
-  {
-    name: "Peru",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Tropical",
-    population: "Large",
-    emoji: "🇵🇪"
-  },
-  {
-    name: "Iran",
-    continent: "Asia",
-    language: "Persian",
     climate: "Arid",
     population: "Large",
-    emoji: "🇮🇷"
-  },
-  {
-    name: "Kenya",
-    continent: "Africa",
-    language: "Swahili",
-    climate: "Tropical",
-    population: "Large",
-    emoji: "🇰🇪"
-  },
-  {
-    name: "Greece",
-    continent: "Europe",
-    language: "Greek",
-    climate: "Mediterranean",
-    population: "Medium",
-    emoji: "🇬🇷"
-  },
-  {
-    name: "Singapore",
-    continent: "Asia",
-    language: "English",
-    climate: "Tropical",
-    population: "Small",
-    emoji: "🇸🇬"
-  },
-  {
-    name: "Argentina",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇦🇷"
-  },
-  {
-    name: "Argentina",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇦🇷"
+    emoji: "🇪🇬",
+    fact: "The Great Pyramid of Giza is the only one of the Seven Wonders of the Ancient World that still exists.",
   },
   {
     name: "Nigeria",
@@ -301,7 +131,197 @@ export const countryData = [
     language: "English",
     climate: "Tropical",
     population: "Very Large",
-    emoji: "🇳🇬"
+    emoji: "🇳🇬",
+    fact: "Nigeria is Africa's most populous country and has over 500 different ethnic groups.",
+  },
+  {
+    name: "Russia",
+    continent: "Europe",
+    language: "Russian",
+    climate: "Continental",
+    population: "Very Large",
+    emoji: "🇷🇺",
+    fact: "Russia is the largest country in the world, covering more than one-eighth of the Earth's inhabited land area.",
+  },
+  {
+    name: "Mexico",
+    continent: "North America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇲🇽",
+    fact: "Mexico introduced chocolate, corn, and chilies to the world and has 35 UNESCO World Heritage sites.",
+  },
+  {
+    name: "Indonesia",
+    continent: "Asia",
+    language: "Indonesian",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇮🇩",
+    fact: "Indonesia is the world's largest archipelago with more than 17,000 islands, of which only about 6,000 are inhabited.",
+  },
+  {
+    name: "South Africa",
+    continent: "Africa",
+    language: "English",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇿🇦",
+    fact: "South Africa has 11 official languages and is the only country with three capital cities.",
+  },
+  {
+    name: "Sweden",
+    continent: "Europe",
+    language: "Swedish",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇸🇪",
+    fact: "Sweden has the world's first ice hotel and recycles 99% of its household waste.",
+  },
+  {
+    name: "Norway",
+    continent: "Europe",
+    language: "Norwegian",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇳🇴",
+    fact: "Norway has the world's longest road tunnel at 15.2 miles long and is home to the Nobel Peace Prize ceremony.",
+  },
+  {
+    name: "South Korea",
+    continent: "Asia",
+    language: "Korean",
+    climate: "Temperate",
+    population: "Large",
+    emoji: "🇰🇷",
+    fact: "South Korea has the world's fastest average internet speed and is considered the plastic surgery capital of the world.",
+  },
+  {
+    name: "Saudi Arabia",
+    continent: "Asia",
+    language: "Arabic",
+    climate: "Arid",
+    population: "Large",
+    emoji: "🇸🇦",
+    fact: "Saudi Arabia is the world's largest country without a river and contains the world's largest continuous sand desert.",
+  },
+  {
+    name: "Thailand",
+    continent: "Asia",
+    language: "Thai",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇹🇭",
+    fact: "Thailand is the only Southeast Asian country that was never colonized by a European power and has over 40,000 Buddhist temples.",
+  },
+  {
+    name: "Turkey",
+    continent: "Asia",
+    language: "Turkish",
+    climate: "Mediterranean",
+    population: "Large",
+    emoji: "🇹🇷",
+    fact: "Turkey is the only country that straddles two continents, Europe and Asia, and Istanbul is the only city in the world on two continents.",
+  },
+  {
+    name: "New Zealand",
+    continent: "Oceania",
+    language: "English",
+    climate: "Temperate",
+    population: "Small",
+    emoji: "🇳🇿",
+    fact: "New Zealand was the first country to give women the right to vote in 1893 and has more sheep than people, about 5 to 1.",
+  },
+  {
+    name: "Colombia",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇨🇴",
+    fact: "Colombia is the only South American country with coastlines on both the Pacific Ocean and the Caribbean Sea, and produces 90% of the world's emeralds.",
+  },
+  {
+    name: "Pakistan",
+    continent: "Asia",
+    language: "Urdu",
+    climate: "Arid",
+    population: "Very Large",
+    emoji: "🇵🇰",
+    fact: "Pakistan is home to K2, the second-highest mountain in the world, and has the world's largest contiguous irrigation system.",
+  },
+  {
+    name: "Chile",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇨🇱",
+    fact: "Chile is the world's longest country from north to south and is home to the driest place on Earth, the Atacama Desert.",
+  },
+  {
+    name: "Vietnam",
+    continent: "Asia",
+    language: "Vietnamese",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇻🇳",
+    fact: "Vietnam is the world's largest exporter of cashew nuts and Robusta coffee, and has one of the fastest growing economies in the world.",
+  },
+  {
+    name: "Morocco",
+    continent: "Africa",
+    language: "Arabic",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇲🇦",
+    fact: "Morocco is home to the oldest university in the world, University of Al-Qarawiyyin, founded in 859 AD, and is the largest producer of sardines in the world.",
+  },
+  {
+    name: "Peru",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇵🇪",
+    fact: "Peru is home to Machu Picchu, the ancient Inca city, and has the highest sand dune in the world at over 3,860 feet tall.",
+  },
+  {
+    name: "Iran",
+    continent: "Asia",
+    language: "Persian",
+    climate: "Arid",
+    population: "Large",
+    emoji: "🇮🇷",
+    fact: "Iran was the first country to develop a charter of human rights, the Cyrus Cylinder, in 539 BC and is home to 24 UNESCO World Heritage sites.",
+  },
+  {
+    name: "Kenya",
+    continent: "Africa",
+    language: "Swahili",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇰🇪",
+    fact: "Kenya is home to the Great Rift Valley, the longest rift on Earth's surface, and is known as the 'Cradle of Mankind' for its rich paleoanthropological sites.",
+  },
+  {
+    name: "Greece",
+    continent: "Europe",
+    language: "Greek",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇬🇷",
+    fact: "Greece has more archaeological museums than any other country in the world and 80% of the country consists of mountains.",
+  },
+  {
+    name: "Singapore",
+    continent: "Asia",
+    language: "English",
+    climate: "Tropical",
+    population: "Small",
+    emoji: "🇸🇬",
+    fact: "Singapore is one of only three city-states in the world and has the world's highest percentage of millionaires, with one out of every six households having at least $1 million in disposable wealth.",
   },
   {
     name: "Malaysia",
@@ -309,7 +329,8 @@ export const countryData = [
     language: "Malay",
     climate: "Tropical",
     population: "Large",
-    emoji: "🇲🇾"
+    emoji: "🇲🇾",
+    fact: "Malaysia is home to the world's largest flower, the Rafflesia, which can grow up to 3 feet in diameter and has the oldest rainforest in the world at 130 million years old.",
   },
   {
     name: "Switzerland",
@@ -317,15 +338,8 @@ export const countryData = [
     language: "German",
     climate: "Continental",
     population: "Small",
-    emoji: "🇨🇭"
-  },
-  {
-    name: "Argentina",
-    continent: "South America",
-    language: "Spanish",
-    climate: "Temperate",
-    population: "Large",
-    emoji: "🇦🇷"
+    emoji: "🇨🇭",
+    fact: "Switzerland has the world's longest passenger tunnel, the Gotthard Base Tunnel, at 35.5 miles long and has more than 450 varieties of cheese.",
   },
   {
     name: "Venezuela",
@@ -333,7 +347,8 @@ export const countryData = [
     language: "Spanish",
     climate: "Tropical",
     population: "Large",
-    emoji: "🇻🇪"
+    emoji: "🇻🇪",
+    fact: "Venezuela is home to Angel Falls, the world's highest uninterrupted waterfall at 3,212 feet, and has the world's largest proven oil reserves.",
   },
   {
     name: "Ghana",
@@ -341,7 +356,8 @@ export const countryData = [
     language: "English",
     climate: "Tropical",
     population: "Medium",
-    emoji: "🇬🇭"
+    emoji: "🇬🇭",
+    fact: "Ghana was the first sub-Saharan African country to gain independence from colonial rule in 1957 and is the world's second-largest producer of cocoa.",
   },
   {
     name: "Croatia",
@@ -349,7 +365,8 @@ export const countryData = [
     language: "Croatian",
     climate: "Mediterranean",
     population: "Small",
-    emoji: "🇭🇷"
+    emoji: "🇭🇷",
+    fact: "Croatia has the smallest town in the world, Hum, with just about 20 residents, and is home to the original white Dalmatian dogs.",
   },
   {
     name: "United Arab Emirates",
@@ -357,7 +374,8 @@ export const countryData = [
     language: "Arabic",
     climate: "Arid",
     population: "Medium",
-    emoji: "🇦🇪"
+    emoji: "🇦🇪",
+    fact: "The UAE has the tallest building in the world, Burj Khalifa, and Dubai Police has luxury supercars in its fleet including Bugattis and Lamborghinis.",
   },
   {
     name: "Philippines",
@@ -365,7 +383,8 @@ export const countryData = [
     language: "Filipino",
     climate: "Tropical",
     population: "Large",
-    emoji: "🇵🇭"
+    emoji: "🇵🇭",
+    fact: "The Philippines consists of more than 7,640 islands and is the world's largest supplier of nurses to the global healthcare system.",
   },
   {
     name: "Portugal",
@@ -373,7 +392,8 @@ export const countryData = [
     language: "Portuguese",
     climate: "Mediterranean",
     population: "Medium",
-    emoji: "🇵🇹"
+    emoji: "🇵🇹",
+    fact: "Portugal is home to the world's oldest bookstore, Livraria Bertrand, operating since 1732, and has the longest bridge in Europe, the Vasco da Gama Bridge.",
   },
   {
     name: "Bangladesh",
@@ -381,7 +401,8 @@ export const countryData = [
     language: "Bengali",
     climate: "Tropical",
     population: "Very Large",
-    emoji: "🇧🇩"
+    emoji: "🇧🇩",
+    fact: "Bangladesh is the most densely populated large country in the world and is home to the world's largest mangrove forest, the Sundarbans.",
   },
   {
     name: "Cuba",
@@ -389,7 +410,8 @@ export const countryData = [
     language: "Spanish",
     climate: "Tropical",
     population: "Medium",
-    emoji: "🇨🇺"
+    emoji: "🇨🇺",
+    fact: "Cuba has one of the highest literacy rates in the world at 99.8% and has a unique two-currency system for locals and tourists.",
   },
   {
     name: "Finland",
@@ -397,7 +419,8 @@ export const countryData = [
     language: "Finnish",
     climate: "Continental",
     population: "Small",
-    emoji: "🇫🇮"
+    emoji: "🇫🇮",
+    fact: "Finland has more saunas than cars, with an estimated 3.3 million saunas for a population of 5.5 million, and is the world's happiest country according to multiple surveys.",
   },
   {
     name: "Ethiopia",
@@ -405,7 +428,8 @@ export const countryData = [
     language: "Amharic",
     climate: "Tropical",
     population: "Very Large",
-    emoji: "🇪🇹"
+    emoji: "🇪🇹",
+    fact: "Ethiopia is the only African country that was never colonized and follows a calendar that is seven to eight years behind the Gregorian calendar.",
   },
   {
     name: "Iceland",
@@ -413,7 +437,8 @@ export const countryData = [
     language: "Icelandic",
     climate: "Continental",
     population: "Small",
-    emoji: "🇮🇸"
+    emoji: "🇮🇸",
+    fact: "Iceland runs almost entirely on renewable energy and has no standing army, making it one of the most peaceful countries in the world.",
   },
   {
     name: "Jamaica",
@@ -421,7 +446,8 @@ export const countryData = [
     language: "English",
     climate: "Tropical",
     population: "Small",
-    emoji: "🇯🇲"
+    emoji: "🇯🇲",
+    fact: "Jamaica has the most churches per square mile of any country in the world and is the birthplace of six distinct music genres, including reggae and ska.",
   },
   {
     name: "Nepal",
@@ -429,7 +455,8 @@ export const countryData = [
     language: "Nepali",
     climate: "Tropical",
     population: "Large",
-    emoji: "🇳🇵"
+    emoji: "🇳🇵",
+    fact: "Nepal is home to Mount Everest, the world's highest peak, and is the only country with a non-rectangular flag.",
   },
   {
     name: "Poland",
@@ -437,7 +464,8 @@ export const countryData = [
     language: "Polish",
     climate: "Continental",
     population: "Large",
-    emoji: "🇵🇱"
+    emoji: "🇵🇱",
+    fact: "Poland is the world's largest exporter of amber, often called 'Baltic gold', and is home to the world's largest castle by land area, Malbork Castle.",
   },
   {
     name: "South Sudan",
@@ -445,7 +473,8 @@ export const countryData = [
     language: "English",
     climate: "Tropical",
     population: "Medium",
-    emoji: "🇸🇸"
+    emoji: "🇸🇸",
+    fact: "South Sudan is the world's newest country, gaining independence in 2011, and is home to the second-largest animal migration in the world.",
   },
   {
     name: "Kazakhstan",
@@ -453,7 +482,8 @@ export const countryData = [
     language: "Kazakh",
     climate: "Continental",
     population: "Medium",
-    emoji: "🇰🇿"
+    emoji: "🇰🇿",
+    fact: "Kazakhstan is the world's largest landlocked country and hosts the Baikonur Cosmodrome, the world's first and largest operational space launch facility.",
   },
   {
     name: "Czech Republic",
@@ -461,7 +491,8 @@ export const countryData = [
     language: "Czech",
     climate: "Continental",
     population: "Medium",
-    emoji: "🇨🇿"
+    emoji: "🇨🇿",
+    fact: "The Czech Republic consumes more beer per capita than any other country in the world and is home to the oldest still-operating university in Central Europe, Charles University, founded in 1348.",
   },
   {
     name: "Uruguay",
@@ -469,7 +500,8 @@ export const countryData = [
     language: "Spanish",
     climate: "Temperate",
     population: "Small",
-    emoji: "🇺🇾"
+    emoji: "🇺🇾",
+    fact: "Uruguay was the first country in the world to fully legalize marijuana and generates 98% of its electricity from renewable sources.",
   },
   {
     name: "Myanmar",
@@ -477,7 +509,8 @@ export const countryData = [
     language: "Burmese",
     climate: "Tropical",
     population: "Large",
-    emoji: "🇲🇲"
+    emoji: "🇲🇲",
+    fact: "Myanmar has the world's largest book, the Kuthodaw Pagoda, which consists of 729 marble slabs inscribed with Buddhist teachings.",
   },
   {
     name: "Hungary",
@@ -485,7 +518,8 @@ export const countryData = [
     language: "Hungarian",
     climate: "Continental",
     population: "Medium",
-    emoji: "🇭🇺"
+    emoji: "🇭🇺",
+    fact: "Hungary is home to the largest thermal water cave system in Europe and has one of the oldest subways in mainland Europe, built in 1896.",
   },
   {
     name: "Zambia",
@@ -493,7 +527,8 @@ export const countryData = [
     language: "English",
     climate: "Tropical",
     population: "Medium",
-    emoji: "🇿🇲"
+    emoji: "🇿🇲",
+    fact: "Zambia is home to Victoria Falls, one of the Seven Natural Wonders of the World, and was the first African country to beat a European team in a European football competition.",
   },
   {
     name: "Slovakia",
@@ -501,7 +536,8 @@ export const countryData = [
     language: "Slovak",
     climate: "Continental",
     population: "Small",
-    emoji: "🇸🇰"
+    emoji: "🇸🇰",
+    fact: "Slovakia has the highest number of castles per capita in the world, with more than 180 castles and 425 chateaux in a country of just 5.5 million people.",
   },
   {
     name: "Paraguay",
@@ -509,6 +545,7 @@ export const countryData = [
     language: "Spanish",
     climate: "Tropical",
     population: "Medium",
-    emoji: "🇵🇾"
+    emoji: "🇵🇾",
+    fact: "Paraguay is one of only two landlocked countries in South America and is home to Itaipu Dam, the second-largest hydroelectric power plant in the world by annual energy generation.",
   }
 ];

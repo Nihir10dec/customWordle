@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { SkipBackIcon as Backspace, SpaceIcon } from "lucide-react"
+import { SkipBackIcon as Backspace, SpaceIcon, CornerDownLeft } from "lucide-react"
 import { useMobileDetect } from "@/hooks/use-mobile"
 
 interface VirtualKeyboardProps {
@@ -10,9 +10,16 @@ interface VirtualKeyboardProps {
   onBackspace: () => void
   onEnter: () => void
   disabled?: boolean
+  incorrectLetters?: Set<string>
 }
 
-export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disabled = false }: VirtualKeyboardProps) {
+export default function VirtualKeyboard({
+  onKeyPress,
+  onBackspace,
+  onEnter,
+  disabled = false,
+  incorrectLetters = new Set(),
+}: VirtualKeyboardProps) {
   const isMobile = useMobileDetect()
   const [showKeyboard, setShowKeyboard] = useState(false)
 
@@ -34,20 +41,24 @@ export default function VirtualKeyboard({ onKeyPress, onBackspace, onEnter, disa
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex justify-center mb-2 gap-1">
 
-          {row.map((key) => (
-            <Button
-              key={key}
-              variant="outline"
-              size="sm"
-              className="w-8 h-10 p-0 font-medium"
-              onClick={() => {
-                if (!disabled) onKeyPress(key)
-              }}
-              disabled={disabled}
-            >
-              {key}
-            </Button>
-          ))}
+          {row.map((key) => {
+            const isIncorrect = incorrectLetters.has(key.toLowerCase())
+            return (
+              <Button
+                key={key}
+                variant="outline"
+                size="sm"
+                className={`w-8 h-10 p-0 font-medium ${isIncorrect ? "text-muted-foreground bg-muted" : ""}`}
+                onClick={() => {
+                  if (!disabled) onKeyPress(key)
+                }}
+                disabled={disabled}
+              >
+                {key}
+              </Button>
+            )
+          })}
+
 
         </div>
 
