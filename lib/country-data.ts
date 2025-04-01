@@ -358,5 +358,157 @@ export const countryData = [
     climate: "Arid",
     population: "Medium",
     emoji: "🇦🇪"
+  },
+  {
+    name: "Philippines",
+    continent: "Asia",
+    language: "Filipino",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇵🇭"
+  },
+  {
+    name: "Portugal",
+    continent: "Europe",
+    language: "Portuguese",
+    climate: "Mediterranean",
+    population: "Medium",
+    emoji: "🇵🇹"
+  },
+  {
+    name: "Bangladesh",
+    continent: "Asia",
+    language: "Bengali",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇧🇩"
+  },
+  {
+    name: "Cuba",
+    continent: "North America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Medium",
+    emoji: "🇨🇺"
+  },
+  {
+    name: "Finland",
+    continent: "Europe",
+    language: "Finnish",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇫🇮"
+  },
+  {
+    name: "Ethiopia",
+    continent: "Africa",
+    language: "Amharic",
+    climate: "Tropical",
+    population: "Very Large",
+    emoji: "🇪🇹"
+  },
+  {
+    name: "Iceland",
+    continent: "Europe",
+    language: "Icelandic",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇮🇸"
+  },
+  {
+    name: "Jamaica",
+    continent: "North America",
+    language: "English",
+    climate: "Tropical",
+    population: "Small",
+    emoji: "🇯🇲"
+  },
+  {
+    name: "Nepal",
+    continent: "Asia",
+    language: "Nepali",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇳🇵"
+  },
+  {
+    name: "Poland",
+    continent: "Europe",
+    language: "Polish",
+    climate: "Continental",
+    population: "Large",
+    emoji: "🇵🇱"
+  },
+  {
+    name: "South Sudan",
+    continent: "Africa",
+    language: "English",
+    climate: "Tropical",
+    population: "Medium",
+    emoji: "🇸🇸"
+  },
+  {
+    name: "Kazakhstan",
+    continent: "Asia",
+    language: "Kazakh",
+    climate: "Continental",
+    population: "Medium",
+    emoji: "🇰🇿"
+  },
+  {
+    name: "Czech Republic",
+    continent: "Europe",
+    language: "Czech",
+    climate: "Continental",
+    population: "Medium",
+    emoji: "🇨🇿"
+  },
+  {
+    name: "Uruguay",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Temperate",
+    population: "Small",
+    emoji: "🇺🇾"
+  },
+  {
+    name: "Myanmar",
+    continent: "Asia",
+    language: "Burmese",
+    climate: "Tropical",
+    population: "Large",
+    emoji: "🇲🇲"
+  },
+  {
+    name: "Hungary",
+    continent: "Europe",
+    language: "Hungarian",
+    climate: "Continental",
+    population: "Medium",
+    emoji: "🇭🇺"
+  },
+  {
+    name: "Zambia",
+    continent: "Africa",
+    language: "English",
+    climate: "Tropical",
+    population: "Medium",
+    emoji: "🇿🇲"
+  },
+  {
+    name: "Slovakia",
+    continent: "Europe",
+    language: "Slovak",
+    climate: "Continental",
+    population: "Small",
+    emoji: "🇸🇰"
+  },
+  {
+    name: "Paraguay",
+    continent: "South America",
+    language: "Spanish",
+    climate: "Tropical",
+    population: "Medium",
+    emoji: "🇵🇾"
   }
 ];

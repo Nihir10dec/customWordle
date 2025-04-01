@@ -239,4 +239,28 @@ export const fruitData = [
     texture: "Soft",
     emoji: "🥭",
   },
+  {
+    name: "Cranberry",
+    taste: "Tart",
+    origin: "North America",
+    color: "Red",
+    texture: "Firm",
+    emoji: "🍒",
+  },
+  {
+    name: "Mulberry",
+    taste: "Sweet-Tart",
+    origin: "Asia",
+    color: "Purple",
+    texture: "Juicy",
+    emoji: "🍇",
+  },
+  {
+    name: "Tamarind",
+    taste: "Sweet-Sour",
+    origin: "Africa",
+    color: "Brown",
+    texture: "Sticky",
+    emoji: "🌰",
+  },
 ];
