@@ -15,14 +15,14 @@ export default function HowToPlay({ categoryData, open, onOpenChange }: HowToPla
   const isBollywood = categoryData.id === "bollywood"
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
+    <Dialog open={open} onOpenChange={onOpenChange} >
+      <DialogContent className="sm:max-w-md max-h-[90dvh] flex flex-col">
+        <DialogHeader className="shrink-0">
           <DialogTitle>How to Play {categoryData.title}</DialogTitle>
           <DialogDescription>Learn how to play the {categoryData.title} game</DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-2">
+        <div className="space-y-4 py-2 flex-1 min-h-0 overflow-y-auto">
           {/* <div>
             <h3 className="font-medium mb-2">Game Objective</h3>
             <p className="text-sm text-muted-foreground">
@@ -97,7 +97,7 @@ export default function HowToPlay({ categoryData, open, onOpenChange }: HowToPla
           </div>
         </div>
 
-        <Button onClick={() => onOpenChange(false)} className="w-full">
+        <Button onClick={() => onOpenChange(false)} className="w-full shrink-0 mt-2">
           Got it!
         </Button>
       </DialogContent>
